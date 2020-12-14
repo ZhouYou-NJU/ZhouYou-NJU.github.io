@@ -1,5 +1,5 @@
 ## You Zhou
-![Image](https://github.com/ZhouYou-NJU/ZhouYou-NJU.github.io/blob/main/PersonImage.png)
+![Image](https://github.com/ZhouYou-NJU/ZhouYou-NJU.github.io/blob/main/images/PersonImage.tif)
 
 **Associate Researcher** <br>
 
