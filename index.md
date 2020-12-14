@@ -1,12 +1,12 @@
 ## You Zhou
 ![Image](https://github.com/ZhouYou-NJU/ZhouYou-NJU.github.io/blob/main/PersonImage.png)
 
-**Associate Researcher**
+**Associate Researcher** <br>
 
-Nanjing University
-School of Electronic Science and Technology
-Computational Sensing and Imaging Lab
-**Email: zhouyou@nju.edu.cn or zhouyou2976@126.com**
+Nanjing University <br>
+School of Electronic Science and Technology <br>
+Computational Sensing and Imaging Lab <br>
+**Email: zhouyou@nju.edu.cn or zhouyou2976@126.com** <br>
 
 ----------------------------------------------------
 - You Zhou received his B.S. degree from East China Normal University in 2012 and Ph.D. degree from Tsinghua University (supervised by Prof. Qionghai Dai) in 2019, respectively. 
