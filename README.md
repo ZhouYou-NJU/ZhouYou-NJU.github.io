@@ -1,3 +1,2 @@
-# ZhouYou-NJU.github.io
-You Zhou HomePage
+# Homepage of You Zhou
 Last Change 2021/05/13
