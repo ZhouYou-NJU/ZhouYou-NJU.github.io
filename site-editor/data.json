@@ -255,7 +255,8 @@
       "meta": "2026, 20(13), e03082",
       "year": 2026,
       "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202503082",
-      "note": ""
+      "note": "",
+      "featured": true
     },
     {
       "id": "p02",
@@ -310,7 +311,8 @@
       "meta": "2025, 2(5), 055001",
       "year": 2025,
       "link": "https://www.researching.cn/articles/OJ652a82f30d22719a",
-      "note": "On the Cover"
+      "note": "On the Cover",
+      "featured": true
     },
     {
       "id": "p07",
@@ -354,7 +356,8 @@
       "meta": "2024, 43(12)",
       "year": 2024,
       "link": "https://ieeexplore.ieee.org/document/10574837",
-      "note": ""
+      "note": "",
+      "featured": true
     },
     {
       "id": "p11",
@@ -486,7 +489,8 @@
       "meta": "2022, 10(9), 2247-2260",
       "year": 2022,
       "link": "https://opg.optica.org/PRJ/abstract.cfm?uri=PRJ-10-9-2247",
-      "note": "Editor's Pick"
+      "note": "Editor's Pick",
+      "featured": true
     },
     {
       "id": "p23",
@@ -508,7 +512,8 @@
       "meta": "2022, 30(11), 18168-18178",
       "year": 2022,
       "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-30-11-18168&id=472748",
-      "note": ""
+      "note": "",
+      "featured": true
     },
     {
       "id": "p25",
