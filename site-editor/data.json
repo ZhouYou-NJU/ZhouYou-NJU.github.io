@@ -1,0 +1,935 @@
+{
+  "profile": {
+    "name": "You Zhou",
+    "nameCn": "周游",
+    "labName": "Pho-FreeU Lab",
+    "title": "Assistant Professor",
+    "affiliation": "Medical School, Nanjing University",
+    "address": "210093, Nanjing, Jiangsu, China",
+    "email": "zhouyou@nju.edu.cn",
+    "schoolLinkLabel": "Homepage@NJU Medical School",
+    "schoolLink": "https://med.nju.edu.cn/zy/main.htm",
+    "offices": "Southeast Building, Gulou Campus\nor Electronic (Panzhonglai) Building, Xianlin Campus",
+    "avatar": "uploads/photos/YZ_Hbg.jpg",
+    "pubNote": "* Joint first author, and # Corresponding author",
+    "aboutHtml": "<p>I am an Assistant Professor at the Medical School of Nanjing University and a member of <a href=\"https://emg-nju.github.io/Homepage/\" target=\"_blank\">EMG@NJU Group</a>, led by <a href=\"https://med.nju.edu.cn/gn/main.htm\" target=\"_blank\">Prof. Ning Gu</a>. From March 2019 to April 2023, I served as an Associate Researcher at the School of Electrical Science and Technology of Nanjing University and a member of <a href=\"https://cite.nju.edu.cn/\" target=\"_blank\">CITE Lab</a>, led by <a href=\"https://cite.nju.edu.cn/People/Faculty/20190621/i5054.html\" target=\"_blank\">Prof. Xun Cao</a>.</p><p>I currently collaborate with <a href=\"https://imt.bjmu.edu.cn/szll/yjsds/yxgcjs_2/6657ae79fe2648efa71b0612b138c61c.htm\" target=\"_blank\">Prof. Bo Xiong</a> @ PKU and <a href=\"https://vision.nju.edu.cn/2c/f1/c29472a535793/page.htm\" target=\"_blank\">Dr. Chengkang Shen</a> @ NJU. My research interests include <strong>Computational Optics and Microscopy</strong>, especially focusing on designing novel and miniaturized microscopes (on-chip microscope, light-field microscope, and micro-endoscope) and developing iterative/intelligent algorithms based on physical imaging processes (3D fluorescent imaging and 3D echocardiogram). For students who are interested in our research area, welcome to join us.</p>",
+    "servicesHtml": "<p><strong>Reviewer (since 2019):</strong></p><p><em>Light: Science &amp; Applications, APL Photonics, npj Imaging,</em><br>Optica Journals (<em>Optica, Photonics Research, Optics Express, Optics Letters, Biomedical Optics Express, Applied Optics, JOSA A</em>),<br><em>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</em>,<br><em>IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)</em>.</p>",
+    "education": [
+      {
+        "degree": "Ph. D.",
+        "period": "2012.08 – 2019.01",
+        "place": "Broadband Network and Digital Media Lab (BBNC), Department of Automation, Tsinghua University, Beijing, China",
+        "sup": "Prof. Qionghai Dai",
+        "supUrl": "http://media.au.tsinghua.edu.cn/english/team/qhdai.html"
+      },
+      {
+        "degree": "Visiting Student",
+        "period": "2016.12 – 2017.06",
+        "place": "Smart Imaging Lab, Biomedical Engineering Department, University of Connecticut (UConn), Storrs, Connecticut, USA",
+        "sup": "Prof. Guoan Zheng",
+        "supUrl": "https://smartimaging.uconn.edu/our-team/"
+      },
+      {
+        "degree": "Bachelor of Science",
+        "period": "2008.09 – 2012.07",
+        "place": "Department of Communication Engineering, East China Normal University, Shanghai, China",
+        "sup": "",
+        "supUrl": ""
+      },
+      {
+        "degree": "Minor Degree",
+        "period": "2009.09 – 2012.02",
+        "place": "School of Mathematical Sciences, Shanghai Jiaotong University, Shanghai, China",
+        "sup": "",
+        "supUrl": ""
+      }
+    ]
+  },
+  "members": {
+    "current": [
+      {
+        "id": "mmujudd7z2k",
+        "name": "Sicheng Long",
+        "degree": "Ph.D",
+        "year": "2026",
+        "photo": "uploads/photos/photo_1790515016506.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": "",
+        "period": "",
+        "now": ""
+      },
+      {
+        "id": "fujiahui",
+        "name": "Jiahui Fu",
+        "degree": "M.S",
+        "year": "2025",
+        "photo": "uploads/photos/fujiahui.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "wuhao",
+        "name": "Hao Wu",
+        "degree": "Ph.D",
+        "year": "2025",
+        "photo": "uploads/photos/wuhao.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "dengzhiyuan",
+        "name": "Zhiyuan Deng",
+        "degree": "Ph.D",
+        "year": "2025",
+        "photo": "uploads/photos/dengzhiyuan.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "liwei",
+        "name": "Wei Li",
+        "degree": "M.S",
+        "year": "2024",
+        "photo": "uploads/photos/liwei.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "xuchenyu",
+        "name": "Chenyu Xu",
+        "degree": "M.S",
+        "year": "2024",
+        "photo": "uploads/photos/xuchenyu.jpg",
+        "link": "https://chaos1025.github.io/",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "mayixiao",
+        "name": "Yixiao Ma",
+        "degree": "M.S",
+        "year": "2024",
+        "photo": "uploads/photos/mayixiao.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "jinzhouyu",
+        "name": "Zhouyu Jin",
+        "degree": "Ph.D",
+        "year": "2024",
+        "photo": "uploads/photos/jinzhouyu.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "gexinyue",
+        "name": "Xinyue Ge",
+        "degree": "Ph.D",
+        "year": "2024",
+        "photo": "uploads/photos/gexinyue.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "wangmeiyue",
+        "name": "Meiyue Wang",
+        "degree": "Ph.D",
+        "year": "2023",
+        "photo": "uploads/photos/wangmeiyue.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "zhangmaoqi",
+        "name": "Maoqi Zhang",
+        "degree": "Ph.D",
+        "year": "2022",
+        "photo": "uploads/photos/zhangmaoqi.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "zhangyunzhong",
+        "name": "Yunzhong Zhang",
+        "degree": "Ph.D",
+        "year": "2021",
+        "photo": "uploads/photos/zhangyunzhong.png",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      }
+    ],
+    "alumni": [
+      {
+        "id": "mmujua9dz20",
+        "name": "Weizhi Song",
+        "degree": "Ph.D",
+        "year": "2026",
+        "photo": "uploads/photos/photo_1790514822323.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": "",
+        "period": "2020.09 – 2026.09",
+        "now": "Now at Nanning Power Grid (Guangxi)"
+      },
+      {
+        "id": "qubohan",
+        "name": "Bohan Qu",
+        "degree": "M.S.",
+        "year": "",
+        "period": "2023.09 – 2026.06",
+        "now": "Now at Tianjin Binhai New Area (Tianjin)",
+        "photo": "uploads/photos/qubohan.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "wangjunjia",
+        "name": "Junjia Wang",
+        "degree": "M.S.",
+        "year": "",
+        "period": "2022.09 – 2025.06",
+        "now": "Now at Huawei (Shanghai)",
+        "photo": "uploads/photos/wangjunjia.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "xuchenyu-bs",
+        "name": "Chenyu Xu",
+        "degree": "B.S.",
+        "year": "",
+        "period": "2022.09 – 2024.06",
+        "now": "Now M.S. (NJU)",
+        "photo": "uploads/photos/xuchenyu.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "liuyifei",
+        "name": "Yifei Liu",
+        "degree": "M.S.",
+        "year": "",
+        "period": "2021.09 – 2024.06",
+        "now": "Now at Suyin Wealth Management (Nanjing)",
+        "photo": "uploads/photos/liuyifei.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      },
+      {
+        "id": "jinzhouyu-ms",
+        "name": "Zhouyu Jin",
+        "degree": "M.S. and RA",
+        "year": "",
+        "period": "2020.09 – 2024.06",
+        "now": "Now Ph.D. (NJU)",
+        "photo": "uploads/photos/jinzhouyu.jpg",
+        "link": "",
+        "homepageEnabled": false,
+        "homepageHtml": ""
+      }
+    ]
+  },
+  "publications": [
+    {
+      "id": "p01",
+      "type": "journal",
+      "authors": "W. Song*, B. Xiong*, Z. Jin, M. Wang, H. Wu, Y. Zhou#, X. Cao",
+      "title": "Compact Live-Cell Lensless Imaging Scheme via Rotating Mask",
+      "venue": "Laser & Photonics Reviews",
+      "meta": "2026, 20(13), e03082",
+      "year": 2026,
+      "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202503082",
+      "note": ""
+    },
+    {
+      "id": "p02",
+      "type": "journal",
+      "authors": "B. He, S. Wang#, Y. Zhou#",
+      "title": "Minimalist optical achromatic meta-imaging with extended field of view",
+      "venue": "Light Advanced Manufacturing",
+      "meta": "2026, 65",
+      "year": 2026,
+      "link": "https://www.light-am.com/article/doi/10.37188/lam.2026.065",
+      "note": "News & Views"
+    },
+    {
+      "id": "p03",
+      "type": "journal",
+      "authors": "W. Li*, W. Song*, C. Xu, B. Xiong#, Y. Zhou#, X. Cao, Z. Ma",
+      "title": "McLDI-INR: Mask-constraint Lensless Dynamic Imaging by Dual-Domain Collaborative Implicit Neural Representation",
+      "venue": "Intelligent Opto-Electronics",
+      "meta": "2026, 2, 260002",
+      "year": 2026,
+      "link": "https://www.oejournal.org/ioe/article/id/b059a09b-ca49-4b9a-8df0-0217f2fe4d26",
+      "note": ""
+    },
+    {
+      "id": "p04",
+      "type": "journal",
+      "authors": "H. Ni#, C. Cao, Y. Zhou, Y. Bai, J. Sheng, Y. Wang, N. Gu#",
+      "title": "Digital heart initiative: an ecosystem for digital discovery and precision medicine in cardiology",
+      "venue": "National Science Review",
+      "meta": "2026, 13(12), nwag302",
+      "year": 2026,
+      "link": "https://academic.oup.com/nsr/article/13/12/nwag302/8692786",
+      "note": ""
+    },
+    {
+      "id": "p05",
+      "type": "journal",
+      "authors": "B. Qu*, Z. Jin*, Y. Zhou#, B. Xiong#, X. Cao",
+      "title": "Deep learning-based noise correction method for light-field fluorescence microscopy",
+      "venue": "Photonics Research",
+      "meta": "2025, 13(9), 2547",
+      "year": 2025,
+      "link": "https://opg.optica.org/prj/fulltext.cfm?uri=prj-13-9-2547&id=576050",
+      "note": ""
+    },
+    {
+      "id": "p06",
+      "type": "journal",
+      "authors": "C. Xu*, Z. Jin*, C. Shen, H. Zhu, Z. Ma, B. Xiong#, Y. Zhou#, X. Cao, N. Gu",
+      "title": "3D Gaussian Adaptive Reconstruction for Fourier Light-Field Microscopy",
+      "venue": "Advanced Imaging",
+      "meta": "2025, 2(5), 055001",
+      "year": 2025,
+      "link": "https://www.researching.cn/articles/OJ652a82f30d22719a",
+      "note": "On the Cover"
+    },
+    {
+      "id": "p07",
+      "type": "journal",
+      "authors": "J. Wang*, B. Xiong*, Y. Zhou#, X. Cao, Z. Ma",
+      "title": "VM-GAN: A Value Mapping Framework for Virtual Staining of Optical Microscopy Images",
+      "venue": "Optics Express",
+      "meta": "2025, 33(12), 25641-25655",
+      "year": 2025,
+      "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-33-12-25641&id=572752",
+      "note": ""
+    },
+    {
+      "id": "p08",
+      "type": "journal",
+      "authors": "C. Su*, Y. Chen*, Z. Lin, Y. Zhou, B. Xiong, Z. Yu, T. Huang",
+      "title": "Inter-event Interval Microscopy for Event Cameras",
+      "venue": "Photonics Research",
+      "meta": "2025, 13(10), 2843-2853",
+      "year": 2025,
+      "link": "https://opg.optica.org/prj/fulltext.cfm?uri=prj-13-10-2843",
+      "note": ""
+    },
+    {
+      "id": "p09",
+      "type": "journal",
+      "authors": "Y. Zhou*, W. Song*, L. Wu, L. Fan, J. Wang, S. Jiang, Z. Ma, B. Xiong#, X. Cao#",
+      "title": "Large-scale lensless microscopy with fast acquisition and region-wise focusing",
+      "venue": "Laser & Photonics Reviews",
+      "meta": "2024, 18(10), 2400498",
+      "year": 2024,
+      "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400498",
+      "note": ""
+    },
+    {
+      "id": "p10",
+      "type": "journal",
+      "authors": "C. Shen*, H. Zhu*, Y. Zhou*, Y. Liu, S. Yi, L. Dong, W. Zhao, D. Brady, X. Cao#, Z. Ma#, Y. Lin#",
+      "title": "Continuous 3D Myocardial Motion Tracking via Echocardiography",
+      "venue": "IEEE Transactions on Medical Imaging",
+      "meta": "2024, 43(12)",
+      "year": 2024,
+      "link": "https://ieeexplore.ieee.org/document/10574837",
+      "note": ""
+    },
+    {
+      "id": "p11",
+      "type": "journal",
+      "authors": "C. Shen*, H. Zhu*, Y. Zhou*, Y. Liu*, S. Yi, L. Dong, W. Zhao#, D. Brady, X. Cao#, Z. Ma#, Y. Lin#",
+      "title": "CardiacField: Computational Echography for Automated Heart Function Estimation Using 2DE Probes",
+      "venue": "European Heart Journal - Digital Health",
+      "meta": "2024, ztae072",
+      "year": 2024,
+      "link": "https://academic.oup.com/ehjdh/advance-article/doi/10.1093/ehjdh/ztae072/7774032",
+      "note": ""
+    },
+    {
+      "id": "p12",
+      "type": "journal",
+      "authors": "C. Su, Z. Lin, Y. Zhou, S. Wang, Y. Gao, C. Yan, B. Xiong#",
+      "title": "PC-bzip2: a phase-space continuity-enhanced lossless compression algorithm for light-field microscopy data",
+      "venue": "Advanced Photonics Nexus",
+      "meta": "2024, 3(3), 036005",
+      "year": 2024,
+      "link": "https://www.opticsjournal.net/Articles/OJfaaa69f37c43c2f9/Abstract",
+      "note": ""
+    },
+    {
+      "id": "p13",
+      "type": "journal",
+      "authors": "H. Zhu, S. Xie, Z. Liu, F. Liu, Q. Zhang, Y. Zhou, Y. Lin, X. Cao",
+      "title": "Disorder-Invariant Implicit Neural Representation",
+      "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "meta": "2024, 46(8)",
+      "year": 2024,
+      "link": "https://ieeexplore.ieee.org/abstract/document/10436706",
+      "note": ""
+    },
+    {
+      "id": "p14",
+      "type": "journal",
+      "authors": "B. Xiong, C. Su, Z. Lin, Y. Zhou, Z. Yu",
+      "title": "INeAT: an artifact-suppressed and resolution-enhanced computed tomography through iterative neural adaptive tomography",
+      "venue": "Optics Express",
+      "meta": "2024, 32(18), 32336",
+      "year": 2024,
+      "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-32-18-32336&id=554823",
+      "note": ""
+    },
+    {
+      "id": "p15",
+      "type": "journal",
+      "authors": "蒋青, 徐标, 龚旺, 王鹏, 刘吉梓, 周游, 孙璇, 鲍雪, 徐运, 张冰, 吕晗, 段红霞, 王振常#, 阎锡蕴#, 顾宁#",
+      "title": "血管-神经-淋巴网络稳态与失衡对健康评估的价值",
+      "venue": "中华医学杂志",
+      "meta": "2024, 104(15), 1323-1330",
+      "year": 2024,
+      "link": "https://rs.yiigle.com/cmaid/1494869",
+      "note": ""
+    },
+    {
+      "id": "p16",
+      "type": "journal",
+      "authors": "Y. Zhou*, Z. Jin*, Q. Zhao, B. Xiong#, X. Cao#",
+      "title": "Aberration modeling in deep learning for volumetric reconstruction of light-field microscopy",
+      "venue": "Laser & Photonics Reviews",
+      "meta": "2023, 17(10), 2300154",
+      "year": 2023,
+      "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202300154",
+      "note": ""
+    },
+    {
+      "id": "p17",
+      "type": "journal",
+      "authors": "L. Chen, L. Cai, E. Huang, Y. Zhou#, T. Yue, X. Cao",
+      "title": "A notch-mask and dual-prism system for snapshot spectral imaging",
+      "venue": "Optics and Lasers in Engineering",
+      "meta": "2023, 165, 107544",
+      "year": 2023,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0143816623000738",
+      "note": ""
+    },
+    {
+      "id": "p18",
+      "type": "journal",
+      "authors": "C. Su, Y. Gao, Y. Zhou, Y. Sun, C. Yan, H. Yin, B. Xiong#",
+      "title": "AutoDeconJ: a GPU accelerated ImageJ plugin for 3D light field deconvolution with optimal iteration numbers predicting",
+      "venue": "Bioinformatics",
+      "meta": "2023, 39(1), btac760",
+      "year": 2023,
+      "link": "https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btac760/6849514",
+      "note": ""
+    },
+    {
+      "id": "p19",
+      "type": "journal",
+      "authors": "P. Song, T. Wang, S. Jiang, C. Guo, R. Wang, L. Yang, Y. Zhou, G. Zheng#",
+      "title": "Freeform illuminator for computational microscopy",
+      "venue": "Intelligent Computing",
+      "meta": "2023, 2, 0015",
+      "year": 2023,
+      "link": "https://spj.science.org/doi/10.34133/icomputing.0015",
+      "note": ""
+    },
+    {
+      "id": "p20",
+      "type": "journal",
+      "authors": "刘振, 朱昊, 周游, 马展, 曹汛#",
+      "title": "物理模型引导的智能相位成像 (Intelligent phase imaging guided by physics models)",
+      "venue": "物联网学报",
+      "meta": "2023, 7(2), 35-42",
+      "year": 2023,
+      "link": "http://www.infocomm-journal.com/wlw/CN/10.11959/j.issn.2096-3750.2023.00345",
+      "note": ""
+    },
+    {
+      "id": "p21",
+      "type": "journal",
+      "authors": "朱昱敏, 刘吉梓, 周游, 王方旭, 潘鸣飞, 张方舟, 曹晨, 沈艳, 顾宁#",
+      "title": "细胞生物信息学应用于疾病诊断的前景",
+      "venue": "广西医科大学学报",
+      "meta": "2023, 40(04), 533-542",
+      "year": 2023,
+      "link": "",
+      "note": ""
+    },
+    {
+      "id": "p22",
+      "type": "journal",
+      "authors": "Y. Zhou*, B. Xiong*, W. Song, X. Zhang, G. Zheng, Q. Dai#, X. Cao#",
+      "title": "Light-field micro-endoscopy using a fiber bundle: a snapshot 3D epi-fluorescence endoscope",
+      "venue": "Photonics Research",
+      "meta": "2022, 10(9), 2247-2260",
+      "year": 2022,
+      "link": "https://opg.optica.org/PRJ/abstract.cfm?uri=PRJ-10-9-2247",
+      "note": "Editor's Pick"
+    },
+    {
+      "id": "p23",
+      "type": "journal",
+      "authors": "X. Hua*, Y. Wang*, S. Wang*#, X. Zou, Y. Zhou, L. Lin, F. Yan, X. Cao#, S. Xiao#, D. Tsai#, J. Han, Z. Wang#, S. Zhu#",
+      "title": "Ultra-compact snapshot spectral light-field imaging",
+      "venue": "Nature Communications",
+      "meta": "2022, 13, 2732",
+      "year": 2022,
+      "link": "https://www.nature.com/articles/s41467-022-30439-9",
+      "note": ""
+    },
+    {
+      "id": "p24",
+      "type": "journal",
+      "authors": "H. Zhu*, Z. Liu*, Y. Zhou#, Z. Ma, X. Cao#",
+      "title": "DNF: Diffractive Neural Field for Lensless Microscopic Imaging",
+      "venue": "Optics Express",
+      "meta": "2022, 30(11), 18168-18178",
+      "year": 2022,
+      "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-30-11-18168&id=472748",
+      "note": ""
+    },
+    {
+      "id": "p25",
+      "type": "journal",
+      "authors": "Y. Guo, R. Guo, Q. Pan, Y. Zhou, Z. Zhang#, G. Zheng, J. Zhong",
+      "title": "Robust multi-angle structured illumination lensless microscopy via illumination angle calibration",
+      "venue": "Optics Letters",
+      "meta": "2022, 47(7), 1847-1850",
+      "year": 2022,
+      "link": "https://opg.optica.org/ol/abstract.cfm?uri=ol-47-7-1847",
+      "note": ""
+    },
+    {
+      "id": "p26",
+      "type": "journal",
+      "authors": "C. Lu*, Y. Zhou*, Y. Guo*, S. Jiang, Z. Zhang#, G. Zheng, J. Zhong",
+      "title": "Mask-modulated lensless imaging via translated structured illumination",
+      "venue": "Optics Express",
+      "meta": "2021, 29(8), 12491-12501",
+      "year": 2021,
+      "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-29-8-12491&id=449969",
+      "note": ""
+    },
+    {
+      "id": "p27",
+      "type": "journal",
+      "authors": "B. Xiong*, X. Li*, Y. Zhou, L. Wang, J. Wu, Q. Dai#",
+      "title": "Snapshot Partially Coherent Diffraction Tomography",
+      "venue": "Physical Review Applied",
+      "meta": "2021, 15(4), 044048",
+      "year": 2021,
+      "link": "https://journals.aps.org/prapplied/abstract/10.1103/PhysRevApplied.15.044048",
+      "note": ""
+    },
+    {
+      "id": "p28",
+      "type": "journal",
+      "authors": "Y. Zhou*, B. Xiong*, X. Li, Q. Dai, X. Cao#",
+      "title": "Lensless imaging of plant samples using the cross-polarized light",
+      "venue": "Optics Express",
+      "meta": "2020, 28(21), 31611-31623",
+      "year": 2020,
+      "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-28-21-31611&id=440890",
+      "note": ""
+    },
+    {
+      "id": "p29",
+      "type": "journal",
+      "authors": "Y. Zhou*, X. Hua*, Z. Zhang, X. Hu, K. Dixit, J. Zhong, G. Zheng, X. Cao#",
+      "title": "Wirtinger gradient descent optimization for reducing Gaussian noise in lensless microscopy",
+      "venue": "Optics and Lasers in Engineering",
+      "meta": "2020, 134, 106131",
+      "year": 2020,
+      "link": "https://www.sciencedirect.com/science/article/pii/S0143816620300671",
+      "note": ""
+    },
+    {
+      "id": "p30",
+      "type": "journal",
+      "authors": "X. Hua, Y. Cai, Y. Zhou, F. Yan, X. Cao#",
+      "title": "Leukocyte super-resolution via geometry prior and structural consistency",
+      "venue": "Journal of Biomedical Optics",
+      "meta": "2020, 25(10), 106501",
+      "year": 2020,
+      "link": "https://www.spiedigitallibrary.org/journals/journal-of-biomedical-optics/volume-25/issue-10/106501/Leukocyte-super-resolution-via-geometry-prior-and-structural-consistency/10.1117/1.JBO.25.10.106501.full",
+      "note": ""
+    },
+    {
+      "id": "p31",
+      "type": "journal",
+      "authors": "Z. Lu, J. Wu, H. Qiao, Y. Zhou, T. Yan, Z. Zhou, X. Zhang, J. Fan, Q. Dai#",
+      "title": "Phase-space deconvolution for light field microscopy",
+      "venue": "Optics Express",
+      "meta": "2019, 27(13), 18131-18145",
+      "year": 2019,
+      "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-27-13-18131&id=413790",
+      "note": ""
+    },
+    {
+      "id": "p32",
+      "type": "journal",
+      "authors": "Y. Zhou, J. Wu, J. Suo, X. Han, G. Zheng, Q. Dai#",
+      "title": "Single-shot lensless imaging via simultaneous multi-angle LED illumination",
+      "venue": "Optics Express",
+      "meta": "2018, 26(17), 21418-21432",
+      "year": 2018,
+      "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-26-17-21418&id=396015",
+      "note": ""
+    },
+    {
+      "id": "p33",
+      "type": "journal",
+      "authors": "Z. Zhang*, Y. Zhou*, S. Jiang, K. Guo, K. Hoshino, J. Zhong, J. Suo, Q. Dai, G. Zheng#",
+      "title": "Invited Article: Mask-modulated lensless imaging with multi-angle illuminations",
+      "venue": "APL Photonics",
+      "meta": "2018, 3(6), 060803",
+      "year": 2018,
+      "link": "https://pubs.aip.org/aip/app/article/3/6/060803/894559",
+      "note": ""
+    },
+    {
+      "id": "p34",
+      "type": "journal",
+      "authors": "Y. Zhou, J. Wu, Z. Bian, J. Suo, G. Zheng, Q. Dai#",
+      "title": "Fourier ptychographic microscopy using wavelength multiplexing",
+      "venue": "Journal of Biomedical Optics",
+      "meta": "2017, 22(6), 066006",
+      "year": 2017,
+      "link": "https://www.spiedigitallibrary.org/journals/journal-of-biomedical-optics/volume-22/issue-6/066006/Fourier-ptychographic-microscopy-using-wavelength-multiplexing/10.1117/1.JBO.22.6.066006.full",
+      "note": ""
+    },
+    {
+      "id": "p35",
+      "type": "journal",
+      "authors": "X. Wang, Q. Zhang, Y. Zhou, J. Qian, H. Zou#",
+      "title": "Linear canonical transform related operators and their applications to signal analysis—Part I: Fundamentals",
+      "venue": "Chinese Journal of Electronics",
+      "meta": "2015, 24(1), 102-109",
+      "year": 2015,
+      "link": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/cje.2015.01.017",
+      "note": ""
+    },
+    {
+      "id": "p36",
+      "type": "journal",
+      "authors": "X. Wang, Q. Zhang, Y. Zhou, J. Qian, H. Zou#",
+      "title": "Linear Canonical Transform Related Operators and Their Applications to Signal Analysis—Part II: Applications",
+      "venue": "Chinese Journal of Electronics",
+      "meta": "2015, 24(2), 312-316",
+      "year": 2015,
+      "link": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/cje.2015.04.014",
+      "note": ""
+    },
+    {
+      "id": "p37",
+      "type": "conf",
+      "track": "Artificial Intelligence",
+      "authors": "Y. Zhang*, Y. Zhou*, C. Su, Z. Cheng, Z. Yu, B. Xiong#, T. Huang, X. Cao",
+      "title": "Spike Imaging Velocimetry: Dense Motion Estimation of Fluids Using Spike Streams",
+      "venue": "AAAI Conference on Artificial Intelligence (AAAI)",
+      "meta": "Singapore",
+      "year": 2026,
+      "link": "",
+      "note": ""
+    },
+    {
+      "id": "p38",
+      "type": "conf",
+      "track": "Artificial Intelligence",
+      "authors": "B. Jiang*, B. Xiong*, B. Qu, M. S. Asif, Y. Zhou#, Z. Ma#",
+      "title": "EDformer: Transformer-Based Event Denoising Across Varied Noise Level",
+      "venue": "European Conference on Computer Vision (ECCV)",
+      "meta": "Milan, Italy",
+      "year": 2024,
+      "link": "https://link.springer.com/chapter/10.1007/978-3-031-73383-3_12",
+      "note": ""
+    },
+    {
+      "id": "p39",
+      "type": "conf",
+      "track": "Artificial Intelligence",
+      "authors": "H. Ge, Q. Feng, H. Jia, X. Li, X. Yin, Y. Zhou, J. Yang, K. Li#",
+      "title": "LPSNet: End-to-End Human Pose and Shape Estimation with Lensless Imaging",
+      "venue": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "meta": "Seattle, USA",
+      "year": 2024,
+      "link": "https://ieeexplore.ieee.org/document/10658368",
+      "note": ""
+    },
+    {
+      "id": "p40",
+      "type": "conf",
+      "track": "Artificial Intelligence",
+      "authors": "C. Su, Z. Ye, Y. Xiao, Y. Zhou, Z. Cheng, B. Xiong, T. Huang",
+      "title": "Intensity-robust autofocus for spike camera",
+      "venue": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "meta": "Seattle, USA",
+      "year": 2024,
+      "link": "https://openaccess.thecvf.com/content/CVPR2024/html/Su_Intensity-Robust_Autofocus_for_Spike_Camera_CVPR_2024_paper.html",
+      "note": ""
+    },
+    {
+      "id": "p41",
+      "type": "conf",
+      "track": "Artificial Intelligence",
+      "authors": "B. Xiong, C. Su, Z. Lin, Y. Chen, Y. Zhou, Z. Cheng, T. Huang",
+      "title": "Real-time parameter evaluation of high-speed microfluidic droplets using continuous spike streams",
+      "venue": "ACM International Conference on Multimedia (ACM MM)",
+      "meta": "Melbourne, Australia",
+      "year": 2024,
+      "link": "https://dl.acm.org/doi/abs/10.1145/3664647.3681378",
+      "note": ""
+    },
+    {
+      "id": "p42",
+      "type": "conf",
+      "track": "Artificial Intelligence",
+      "authors": "S. Xie*, H. Zhu*, Z. Liu, Q. Zhang, Y. Zhou, X. Cao#, Z. Ma#",
+      "title": "DINER: Disorder-Invariant Implicit Neural Representation",
+      "venue": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "meta": "Vancouver, Canada",
+      "year": 2023,
+      "link": "https://ieeexplore.ieee.org/document/10205321",
+      "note": "Highlight, 2.5% of submissions"
+    },
+    {
+      "id": "p43",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "C. Xu, Z. Jin, B. Xiong, Y. Zhou#, X. Cao",
+      "title": "3D Image Restoration using Implicit Neural Representations for Brightfield and Widefield Fluorescence Microscopy",
+      "venue": "Computational Optical Sensing and Imaging (COSI)",
+      "meta": "Toulouse, France",
+      "year": 2024,
+      "link": "https://opg.optica.org/abstract.cfm?URI=COSI-2024-CTh4B.5",
+      "note": ""
+    },
+    {
+      "id": "p44",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "Y. Liu, W. Song, Y. Zhou#, B. Xiong, X. Cao",
+      "title": "Hybrid Scanning Lensless Imaging by Diffractive Neural Field",
+      "venue": "Computational Optical Sensing and Imaging (COSI)",
+      "meta": "Toulouse, France",
+      "year": 2024,
+      "link": "https://opg.optica.org/abstract.cfm?URI=COSI-2024-CF1A.4",
+      "note": ""
+    },
+    {
+      "id": "p45",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "B. Xiong, R. Wang, Y. Zhou, X. Sun, Y. Yang, C. Su",
+      "title": "High-speed phase transition imaging using spike streams",
+      "venue": "3D Image Acquisition and Display",
+      "meta": "Toulouse, France",
+      "year": 2024,
+      "link": "https://opg.optica.org/abstract.cfm?URI=3D-2024-JD6A.2",
+      "note": ""
+    },
+    {
+      "id": "p46",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "Y. Zhou, B. Xiong#, W. Song, X. Cao",
+      "title": "Dual-modal light-field micro-endoscopy",
+      "venue": "Frontiers in Optics + Laser Science (FiO+LS)",
+      "meta": "New York, USA",
+      "year": 2022,
+      "link": "https://opg.optica.org/abstract.cfm?uri=FiO-2022-JW4B.45",
+      "note": ""
+    },
+    {
+      "id": "p47",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "W. Song, Y. Zhou#, B. Xiong, X. Cao",
+      "title": "Lensless Imaging By Binary Mask Rotation",
+      "venue": "Frontiers in Optics + Laser Science (FiO+LS)",
+      "meta": "New York, USA",
+      "year": 2022,
+      "link": "https://opg.optica.org/abstract.cfm?uri=FiO-2022-JTu5B.8",
+      "note": ""
+    },
+    {
+      "id": "p48",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "C. Su, T. Liu, C. Chen, H. Wang, J. Hu, Y. Zhou#, B. Xiong#, X. Cao",
+      "title": "Analysis of pre-processing methods for lossless compression of multi-component medical images based on latent variable models",
+      "venue": "Frontiers in Optics + Laser Science (FiO+LS)",
+      "meta": "New York, USA",
+      "year": 2022,
+      "link": "https://opg.optica.org/abstract.cfm?uri=FiO-2022-JW5B.53",
+      "note": ""
+    },
+    {
+      "id": "p49",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "W. Song, Y. Zhou#, B. Xiong, X. Cao",
+      "title": "Multi-wavelength Lensless Microscopy Via A Linear Variable Bandpass Filter",
+      "venue": "Biophotonics Congress: Biomedical Optics",
+      "meta": "Florida, USA",
+      "year": 2022,
+      "link": "https://opg.optica.org/abstract.cfm?uri=BRAIN-2022-JTu3A.21",
+      "note": ""
+    },
+    {
+      "id": "p50",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "Y. Zhou, X. Hua, W. Song, X. Cao#",
+      "title": "A novel denoising reconstruction algorithm for multi-height lensless microscopy",
+      "venue": "Biophotonics Congress: Biomedical Optics",
+      "meta": "Washington D.C., USA",
+      "year": 2020,
+      "link": "https://opg.optica.org/abstract.cfm?uri=Microscopy-2020-MTh4A.5",
+      "note": ""
+    },
+    {
+      "id": "p51",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "Y. Zhou, G. Zhang, J. Wu, M. Choi, Q. Dai#",
+      "title": "Wavefront shaping for achieving high NA GRIN-lens-based endoscopic imaging",
+      "venue": "Biophotonics Congress: Optics in the Life Sciences",
+      "meta": "Arizona, USA",
+      "year": 2019,
+      "link": "https://opg.optica.org/abstract.cfm?uri=NTM-2019-NT2C.4",
+      "note": ""
+    },
+    {
+      "id": "p52",
+      "type": "conf",
+      "track": "Optics and Photonics",
+      "authors": "Y. Zhou, J. Wu, Z. Bian, G. Zheng, Q. Dai#",
+      "title": "Wavelength multiplexed Fourier ptychographic microscopy",
+      "venue": "Computational Optical Sensing and Imaging (COSI)",
+      "meta": "Heidelberg, Germany",
+      "year": 2016,
+      "link": "https://opg.optica.org/abstract.cfm?URI=COSI-2016-CT2D.4",
+      "note": ""
+    },
+    {
+      "id": "p53",
+      "type": "patent",
+      "authors": "Q. Dai, Y. Zhou, J. Wu, G. Zhang",
+      "title": "Microscopic Imaging system and method",
+      "venue": "USA",
+      "meta": "US11262568B2",
+      "year": 0,
+      "link": "",
+      "note": ""
+    },
+    {
+      "id": "p54",
+      "type": "patent",
+      "authors": "Q. Dai, Y. Zhou, J. Wu, J. Fan",
+      "title": "Wavelength multiplexed Fourier ptychographic microscopy system and method",
+      "venue": "USA",
+      "meta": "US10185137B2",
+      "year": 0,
+      "link": "",
+      "note": ""
+    },
+    {
+      "id": "p55",
+      "type": "patent",
+      "authors": "Q. Dai, Y. Zhou, J. Wu, G. Zhang",
+      "title": "Rapid three-dimensional imaging system and method based on multi-angle 4Pi microscope, and storage medium",
+      "venue": "USA",
+      "meta": "US11719921B2",
+      "year": 0,
+      "link": "",
+      "note": ""
+    }
+  ],
+  "honors": [
+    {
+      "text": "Outstanding Research Achievements of Nanjing City, 2026"
+    },
+    {
+      "text": "Young Talent Support Program of Jiangsu Province, 2025"
+    },
+    {
+      "text": "Selected Recipient of the Jiangsu Provincial Innovation & Entrepreneurship Doctor Program, 2020"
+    },
+    {
+      "text": "Short-term Overseas Exchange Scholarship of Tsinghua University, 2016"
+    },
+    {
+      "text": "Best Oral Presentation in the PhD Forum of Tsinghua University, 2015"
+    },
+    {
+      "text": "Excellent Laboratory Construction Award of Tsinghua University, first prize, 2015"
+    },
+    {
+      "text": "Technological Invention Award of Shanghai University Student, third prize, 2012"
+    },
+    {
+      "text": "Technological Invention Award of East China Normal University, first prize, 2011"
+    },
+    {
+      "text": "Excellent Student of East China Normal University, 2010"
+    },
+    {
+      "text": "Outstanding Student Scholarship of East China Normal University (3 times), 2008-2012"
+    }
+  ],
+  "codes": [
+    {
+      "name": "3D Gaussian adaptive reconstruction for Fourier light-field microscopy",
+      "url": "https://github.com/Chaos1025/3DGAT",
+      "desc": ""
+    },
+    {
+      "name": "CardiacField: Computational Echocardiography for Automated Heart Function Estimation Using 2DE Probes",
+      "url": "https://njuvision.github.io/CardiacField/",
+      "desc": ""
+    },
+    {
+      "name": "Continuous 3D Myocardial Motion Tracking via Echocardiography",
+      "url": "https://njuvision.github.io/NeuralCMF/",
+      "desc": ""
+    },
+    {
+      "name": "DINER: Disorder-Invariant Implicit Neural Representation",
+      "url": "https://ezio77.github.io/DINER-website/",
+      "desc": ""
+    },
+    {
+      "name": "DNF: Diffractive Neural Field for Lensless Microscopic Imaging",
+      "url": "https://github.com/liuzhen0212/DNF",
+      "desc": ""
+    },
+    {
+      "name": "Wirtinger gradient descent optimization for reducing Gaussian noise in lensless microscopy",
+      "url": "https://github.com/ZhouYou-NJU/WGDG_demo",
+      "desc": ""
+    }
+  ]
+}

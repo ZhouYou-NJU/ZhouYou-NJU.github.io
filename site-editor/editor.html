@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>课题组主页编辑器</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei",Verdana,Arial,sans-serif;background:#f0f2f5;color:#26282e;font-size:14px}
+header.top{position:sticky;top:0;z-index:20;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center;padding:10px 22px;flex-wrap:wrap;gap:8px}
+.brand{font-size:17px;font-weight:bold;color:#1a3c6e}
+.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+button{cursor:pointer;border:1px solid #c9d2de;background:#fff;color:#2b4a72;border-radius:6px;padding:5px 12px;font-size:13px;font-family:inherit;transition:all .15s}
+button:hover{background:#eef4fb;border-color:#8fb1d9}
+button.primary{background:#1a5dad;border-color:#1a5dad;color:#fff}
+button.primary:hover{background:#174f95}
+button.danger{color:#c0392b;border-color:#e0b4b0}
+button.danger:hover{background:#fdecea}
+button.mini{padding:2px 8px;font-size:12px}
+#saveStatus{font-size:12px;color:#888;min-width:110px}
+#mode{font-size:12px;padding:2px 8px;border-radius:10px;background:#e6f4ea;color:#1e7e34}
+#mode.local{background:#fff3df;color:#a4700a}
+nav.tabs{display:flex;gap:4px;max-width:1120px;margin:16px auto 0;padding:0 20px;flex-wrap:wrap}
+nav.tabs button{border-radius:8px 8px 0 0;border-bottom:none;padding:9px 18px;font-size:14px;background:#e6e9ee;color:#556}
+nav.tabs button.active{background:#fff;color:#1a5dad;font-weight:bold}
+main{max-width:1120px;margin:0 auto 60px;padding:0 20px}
+.panel{background:#fff;border-radius:0 10px 10px 10px;box-shadow:0 1px 5px rgba(0,0,0,.07);padding:26px 30px;min-height:420px}
+h2.sec{font-size:17px;color:#1a3c6e;margin:22px 0 10px;padding-left:10px;border-left:4px solid #1a5dad}
+h2.sec:first-child{margin-top:0}
+.field{margin:10px 0}
+.field label{display:block;font-size:13px;color:#667;margin-bottom:4px}
+.field input[type=text],.field input[type=url],.field input[type=number],.field textarea,.field select{width:100%;padding:7px 10px;border:1px solid #ccd4de;border-radius:6px;font-size:13px;font-family:inherit;background:#fff}
+.field textarea{min-height:70px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.rte{border:1px solid #ccd4de;border-radius:6px;min-height:120px;padding:10px 12px;background:#fff;line-height:1.7;font-family:Georgia,"Times New Roman",serif;overflow:auto}
+.rte:focus{outline:2px solid #9cc3ee}
+.rte a{color:#1a5dad}
+.toolbar{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap}
+.toolbar button{padding:2px 10px;font-size:12px}
+.list-row{display:flex;align-items:flex-start;gap:10px;border:1px solid #e6eaf0;border-radius:8px;padding:10px 14px;margin:8px 0;background:#fbfcfe}
+.list-row:hover{border-color:#b9cbe4}
+.list-row.featured{border-left:3px solid #e8c84a;background:#fffdf3}
+button.star-on{background:#fff3cf;border-color:#e0c245;color:#8a6d00}
+.list-row .grow{flex:1;min-width:0}
+.list-row .ttl{font-weight:bold;color:#1a5dad;word-break:break-word}
+.list-row .sub{font-size:12.5px;color:#667;margin-top:3px}
+.list-row .ops{display:flex;gap:4px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.mcard{border:1px solid #e3e8ef;border-radius:10px;padding:14px;background:#fbfcfe}
+.mcard .photobox{text-align:center}
+.mcard img{width:96px;height:120px;object-fit:cover;border-radius:8px;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.15)}
+.mcard .nop{width:96px;height:120px;border-radius:8px;background:#e2e8f0;display:inline-flex;align-items:center;justify-content:center;color:#889;font-size:12px;cursor:pointer}
+.mcard .ops{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}
+.chip{display:inline-block;font-size:11px;background:#e8f0fb;color:#1a5dad;border-radius:4px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.quick{display:grid;grid-template-columns:130px 2fr 2fr 100px auto;gap:8px;align-items:end;background:#f7f9fc;border:1px dashed #c9d2de;padding:12px;border-radius:8px;margin-bottom:16px}
+.quick input,.quick select{padding:6px 8px;border:1px solid #ccd4de;border-radius:6px;font-size:13px;width:100%}
+.mask{position:fixed;inset:0;background:rgba(20,30,50,.45);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:#fff;border-radius:12px;max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:22px 26px;box-shadow:0 8px 40px rgba(0,0,0,.25)}
+.modal h3{margin-bottom:14px;color:#1a3c6e}
+.modal .mfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#2b3a55;color:#fff;padding:9px 22px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:99;max-width:80vw}
+#toast.show{opacity:.95}
+.hint{font-size:12.5px;color:#889;background:#f6f8fb;border-radius:6px;padding:8px 12px;margin:8px 0;line-height:1.7}
+.hint b{color:#1a5dad}
+.chk{display:flex;align-items:center;gap:6px;font-size:13px;color:#444;margin-top:6px}
+.yearhead{font-size:15px;font-weight:bold;color:#333;margin:16px 0 4px;font-family:Verdana,sans-serif}
+.exp{font-size:12px;color:#889}
+.filelist{font-size:12.5px;color:#556;background:#f7f9fc;border-radius:6px;padding:10px 14px;margin-top:10px;max-height:200px;overflow:auto;font-family:Consolas,monospace}
+.kv{margin:10px 0}
+.kv b{color:#1a3c6e}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">🧑‍🏫 课题组主页编辑器 <span style="font-weight:normal;font-size:12px;color:#889">You Zhou Lab Homepage</span></div>
+  <div class="actions">
+    <span id="mode">连接中…</span>
+    <span id="saveStatus"></span>
+    <button onclick="exportJSON()">导出数据</button>
+    <button onclick="importJSON()">导入数据</button>
+    <button class="primary" onclick="openSite()">查看网站</button>
+  </div>
+</header>
+<nav class="tabs" id="tabs">
+  <button data-tab="profile" class="active">个人信息</button>
+  <button data-tab="members">Group Members</button>
+  <button data-tab="pubs">Publications</button>
+  <button data-tab="honors">Honors and Awards</button>
+  <button data-tab="codes">Related Codes</button>
+  <button data-tab="publish">发布导出</button>
+</nav>
+<main>
+  <div class="panel" id="tab-profile"></div>
+  <div class="panel" id="tab-members" style="display:none"></div>
+  <div class="panel" id="tab-pubs" style="display:none"></div>
+  <div class="panel" id="tab-honors" style="display:none"></div>
+  <div class="panel" id="tab-codes" style="display:none"></div>
+  <div class="panel" id="tab-publish" style="display:none"></div>
+</main>
+<div class="mask" id="mask" style="display:none"><div class="modal" id="modal"></div></div>
+<div id="toast"></div>
+<input type="file" id="fileInput" style="display:none">
+<script id="default-data" type="application/json">{
+  "profile": {
+    "name": "You Zhou",
+    "nameCn": "周游",
+    "labName": "Pho-FreeU Lab",
+    "title": "Assistant Professor",
+    "affiliation": "Medical School, Nanjing University",
+    "address": "210093, Nanjing, Jiangsu, China",
+    "email": "zhouyou@nju.edu.cn",
+    "schoolLinkLabel": "Homepage@NJU Medical School",
+    "schoolLink": "https://med.nju.edu.cn/zy/main.htm",
+    "offices": "Southeast Building, Gulou Campus\nor Electronic (Panzhonglai) Building, Xianlin Campus",
+    "avatar": "uploads/photos/YZ_Hbg.jpg",
+    "pubNote": "* Joint first author, and # Corresponding author",
+    "aboutHtml": "<p>I am an Assistant Professor at the Medical School of Nanjing University and a member of <a href=\"https://emg-nju.github.io/Homepage/\" target=\"_blank\">EMG@NJU Group</a>, led by <a href=\"https://med.nju.edu.cn/gn/main.htm\" target=\"_blank\">Prof. Ning Gu</a>. From March 2019 to April 2023, I served as an Associate Researcher at the School of Electrical Science and Technology of Nanjing University and a member of <a href=\"https://cite.nju.edu.cn/\" target=\"_blank\">CITE Lab</a>, led by <a href=\"https://cite.nju.edu.cn/People/Faculty/20190621/i5054.html\" target=\"_blank\">Prof. Xun Cao</a>.</p><p>I currently collaborate with <a href=\"https://imt.bjmu.edu.cn/szll/yjsds/yxgcjs_2/6657ae79fe2648efa71b0612b138c61c.htm\" target=\"_blank\">Prof. Bo Xiong</a> @ PKU and <a href=\"https://vision.nju.edu.cn/2c/f1/c29472a535793/page.htm\" target=\"_blank\">Dr. Chengkang Shen</a> @ NJU. My research interests include <strong>Computational Optics and Microscopy</strong>, especially focusing on designing novel and miniaturized microscopes (on-chip microscope, light-field microscope, and micro-endoscope) and developing iterative/intelligent algorithms based on physical imaging processes (3D fluorescent imaging and 3D echocardiogram). For students who are interested in our research area, welcome to join us.</p>",
+    "servicesHtml": "<p><strong>Reviewer (since 2019):</strong></p><p><em>Light: Science &amp; Applications, APL Photonics, npj Imaging,</em><br>Optica Journals (<em>Optica, Photonics Research, Optics Express, Optics Letters, Biomedical Optics Express, Applied Optics, JOSA A</em>),<br><em>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</em>,<br><em>IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)</em>.</p>",
+    "education": [
+      {"degree": "Ph. D.", "period": "2012.08 – 2019.01", "place": "Broadband Network and Digital Media Lab (BBNC), Department of Automation, Tsinghua University, Beijing, China", "sup": "Prof. Qionghai Dai", "supUrl": "http://media.au.tsinghua.edu.cn/english/team/qhdai.html"},
+      {"degree": "Visiting Student", "period": "2016.12 – 2017.06", "place": "Smart Imaging Lab, Biomedical Engineering Department, University of Connecticut (UConn), Storrs, Connecticut, USA", "sup": "Prof. Guoan Zheng", "supUrl": "https://smartimaging.uconn.edu/our-team/"},
+      {"degree": "Bachelor of Science", "period": "2008.09 – 2012.07", "place": "Department of Communication Engineering, East China Normal University, Shanghai, China", "sup": "", "supUrl": ""},
+      {"degree": "Minor Degree", "period": "2009.09 – 2012.02", "place": "School of Mathematical Sciences, Shanghai Jiaotong University, Shanghai, China", "sup": "", "supUrl": ""}
+    ]
+  },
+  "members": {
+    "current": [
+      {"id": "fujiahui", "name": "Jiahui Fu", "degree": "M.S", "year": "2025", "photo": "uploads/photos/fujiahui.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "wuhao", "name": "Hao Wu", "degree": "Ph.D", "year": "2025", "photo": "uploads/photos/wuhao.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "dengzhiyuan", "name": "Zhiyuan Deng", "degree": "Ph.D", "year": "2025", "photo": "uploads/photos/dengzhiyuan.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "liwei", "name": "Wei Li", "degree": "M.S", "year": "2024", "photo": "uploads/photos/liwei.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "xuchenyu", "name": "Chenyu Xu", "degree": "M.S", "year": "2024", "photo": "uploads/photos/xuchenyu.jpg", "link": "https://chaos1025.github.io/", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "mayixiao", "name": "Yixiao Ma", "degree": "M.S", "year": "2024", "photo": "uploads/photos/mayixiao.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "jinzhouyu", "name": "Zhouyu Jin", "degree": "Ph.D", "year": "2024", "photo": "uploads/photos/jinzhouyu.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "gexinyue", "name": "Xinyue Ge", "degree": "Ph.D", "year": "2024", "photo": "uploads/photos/gexinyue.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "wangmeiyue", "name": "Meiyue Wang", "degree": "Ph.D", "year": "2023", "photo": "uploads/photos/wangmeiyue.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "zhangmaoqi", "name": "Maoqi Zhang", "degree": "Ph.D", "year": "2022", "photo": "uploads/photos/zhangmaoqi.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "zhangyunzhong", "name": "Yunzhong Zhang", "degree": "Ph.D", "year": "2021", "photo": "uploads/photos/zhangyunzhong.png", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "songweizhi", "name": "Weizhi Song", "degree": "Ph.D", "year": "2020", "photo": "uploads/photos/songweizhi.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""}
+    ],
+    "alumni": [
+      {"id": "qubohan", "name": "Bohan Qu", "degree": "M.S.", "year": "", "period": "2023.09 – 2026.06", "now": "Now at Tianjin Binhai New Area (Tianjin)", "photo": "uploads/photos/qubohan.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "wangjunjia", "name": "Junjia Wang", "degree": "M.S.", "year": "", "period": "2022.09 – 2025.06", "now": "Now at Huawei (Shanghai)", "photo": "uploads/photos/wangjunjia.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "xuchenyu-bs", "name": "Chenyu Xu", "degree": "B.S.", "year": "", "period": "2022.09 – 2024.06", "now": "Now M.S. (NJU)", "photo": "uploads/photos/xuchenyu.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "liuyifei", "name": "Yifei Liu", "degree": "M.S.", "year": "", "period": "2021.09 – 2024.06", "now": "Now at Suyin Wealth Management (Nanjing)", "photo": "uploads/photos/liuyifei.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""},
+      {"id": "jinzhouyu-ms", "name": "Zhouyu Jin", "degree": "M.S. and RA", "year": "", "period": "2020.09 – 2024.06", "now": "Now Ph.D. (NJU)", "photo": "uploads/photos/jinzhouyu.jpg", "link": "", "homepageEnabled": false, "homepageHtml": ""}
+    ]
+  },
+  "publications": [
+    {"id": "p01", "type": "journal", "authors": "W. Song*, B. Xiong*, Z. Jin, M. Wang, H. Wu, Y. Zhou#, X. Cao", "title": "Compact Live-Cell Lensless Imaging Scheme via Rotating Mask", "venue": "Laser & Photonics Reviews", "meta": "2026, 20(13), e03082", "year": 2026, "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202503082", "note": ""},
+    {"id": "p02", "type": "journal", "authors": "B. He, S. Wang#, Y. Zhou#", "title": "Minimalist optical achromatic meta-imaging with extended field of view", "venue": "Light Advanced Manufacturing", "meta": "2026, 65", "year": 2026, "link": "https://www.light-am.com/article/doi/10.37188/lam.2026.065", "note": "News & Views"},
+    {"id": "p03", "type": "journal", "authors": "W. Li*, W. Song*, C. Xu, B. Xiong#, Y. Zhou#, X. Cao, Z. Ma", "title": "McLDI-INR: Mask-constraint Lensless Dynamic Imaging by Dual-Domain Collaborative Implicit Neural Representation", "venue": "Intelligent Opto-Electronics", "meta": "2026, 2, 260002", "year": 2026, "link": "https://www.oejournal.org/ioe/article/id/b059a09b-ca49-4b9a-8df0-0217f2fe4d26", "note": ""},
+    {"id": "p04", "type": "journal", "authors": "H. Ni#, C. Cao, Y. Zhou, Y. Bai, J. Sheng, Y. Wang, N. Gu#", "title": "Digital heart initiative: an ecosystem for digital discovery and precision medicine in cardiology", "venue": "National Science Review", "meta": "2026, 13(12), nwag302", "year": 2026, "link": "https://academic.oup.com/nsr/article/13/12/nwag302/8692786", "note": ""},
+    {"id": "p05", "type": "journal", "authors": "B. Qu*, Z. Jin*, Y. Zhou#, B. Xiong#, X. Cao", "title": "Deep learning-based noise correction method for light-field fluorescence microscopy", "venue": "Photonics Research", "meta": "2025, 13(9), 2547", "year": 2025, "link": "https://opg.optica.org/prj/fulltext.cfm?uri=prj-13-9-2547&id=576050", "note": ""},
+    {"id": "p06", "type": "journal", "authors": "C. Xu*, Z. Jin*, C. Shen, H. Zhu, Z. Ma, B. Xiong#, Y. Zhou#, X. Cao, N. Gu", "title": "3D Gaussian Adaptive Reconstruction for Fourier Light-Field Microscopy", "venue": "Advanced Imaging", "meta": "2025, 2(5), 055001", "year": 2025, "link": "https://www.researching.cn/articles/OJ652a82f30d22719a", "note": "On the Cover"},
+    {"id": "p07", "type": "journal", "authors": "J. Wang*, B. Xiong*, Y. Zhou#, X. Cao, Z. Ma", "title": "VM-GAN: A Value Mapping Framework for Virtual Staining of Optical Microscopy Images", "venue": "Optics Express", "meta": "2025, 33(12), 25641-25655", "year": 2025, "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-33-12-25641&id=572752", "note": ""},
+    {"id": "p08", "type": "journal", "authors": "C. Su*, Y. Chen*, Z. Lin, Y. Zhou, B. Xiong, Z. Yu, T. Huang", "title": "Inter-event Interval Microscopy for Event Cameras", "venue": "Photonics Research", "meta": "2025, 13(10), 2843-2853", "year": 2025, "link": "https://opg.optica.org/prj/fulltext.cfm?uri=prj-13-10-2843", "note": ""},
+    {"id": "p09", "type": "journal", "authors": "Y. Zhou*, W. Song*, L. Wu, L. Fan, J. Wang, S. Jiang, Z. Ma, B. Xiong#, X. Cao#", "title": "Large-scale lensless microscopy with fast acquisition and region-wise focusing", "venue": "Laser & Photonics Reviews", "meta": "2024, 18(10), 2400498", "year": 2024, "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400498", "note": ""},
+    {"id": "p10", "type": "journal", "authors": "C. Shen*, H. Zhu*, Y. Zhou*, Y. Liu, S. Yi, L. Dong, W. Zhao, D. Brady, X. Cao#, Z. Ma#, Y. Lin#", "title": "Continuous 3D Myocardial Motion Tracking via Echocardiography", "venue": "IEEE Transactions on Medical Imaging", "meta": "2024, 43(12)", "year": 2024, "link": "https://ieeexplore.ieee.org/document/10574837", "note": ""},
+    {"id": "p11", "type": "journal", "authors": "C. Shen*, H. Zhu*, Y. Zhou*, Y. Liu*, S. Yi, L. Dong, W. Zhao#, D. Brady, X. Cao#, Z. Ma#, Y. Lin#", "title": "CardiacField: Computational Echography for Automated Heart Function Estimation Using 2DE Probes", "venue": "European Heart Journal - Digital Health", "meta": "2024, ztae072", "year": 2024, "link": "https://academic.oup.com/ehjdh/advance-article/doi/10.1093/ehjdh/ztae072/7774032", "note": ""},
+    {"id": "p12", "type": "journal", "authors": "C. Su, Z. Lin, Y. Zhou, S. Wang, Y. Gao, C. Yan, B. Xiong#", "title": "PC-bzip2: a phase-space continuity-enhanced lossless compression algorithm for light-field microscopy data", "venue": "Advanced Photonics Nexus", "meta": "2024, 3(3), 036005", "year": 2024, "link": "https://www.opticsjournal.net/Articles/OJfaaa69f37c43c2f9/Abstract", "note": ""},
+    {"id": "p13", "type": "journal", "authors": "H. Zhu, S. Xie, Z. Liu, F. Liu, Q. Zhang, Y. Zhou, Y. Lin, X. Cao", "title": "Disorder-Invariant Implicit Neural Representation", "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence", "meta": "2024, 46(8)", "year": 2024, "link": "https://ieeexplore.ieee.org/abstract/document/10436706", "note": ""},
+    {"id": "p14", "type": "journal", "authors": "B. Xiong, C. Su, Z. Lin, Y. Zhou, Z. Yu", "title": "INeAT: an artifact-suppressed and resolution-enhanced computed tomography through iterative neural adaptive tomography", "venue": "Optics Express", "meta": "2024, 32(18), 32336", "year": 2024, "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-32-18-32336&id=554823", "note": ""},
+    {"id": "p15", "type": "journal", "authors": "蒋青, 徐标, 龚旺, 王鹏, 刘吉梓, 周游, 孙璇, 鲍雪, 徐运, 张冰, 吕晗, 段红霞, 王振常#, 阎锡蕴#, 顾宁#", "title": "血管-神经-淋巴网络稳态与失衡对健康评估的价值", "venue": "中华医学杂志", "meta": "2024, 104(15), 1323-1330", "year": 2024, "link": "https://rs.yiigle.com/cmaid/1494869", "note": ""},
+    {"id": "p16", "type": "journal", "authors": "Y. Zhou*, Z. Jin*, Q. Zhao, B. Xiong#, X. Cao#", "title": "Aberration modeling in deep learning for volumetric reconstruction of light-field microscopy", "venue": "Laser & Photonics Reviews", "meta": "2023, 17(10), 2300154", "year": 2023, "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202300154", "note": ""},
+    {"id": "p17", "type": "journal", "authors": "L. Chen, L. Cai, E. Huang, Y. Zhou#, T. Yue, X. Cao", "title": "A notch-mask and dual-prism system for snapshot spectral imaging", "venue": "Optics and Lasers in Engineering", "meta": "2023, 165, 107544", "year": 2023, "link": "https://www.sciencedirect.com/science/article/pii/S0143816623000738", "note": ""},
+    {"id": "p18", "type": "journal", "authors": "C. Su, Y. Gao, Y. Zhou, Y. Sun, C. Yan, H. Yin, B. Xiong#", "title": "AutoDeconJ: a GPU accelerated ImageJ plugin for 3D light field deconvolution with optimal iteration numbers predicting", "venue": "Bioinformatics", "meta": "2023, 39(1), btac760", "year": 2023, "link": "https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btac760/6849514", "note": ""},
+    {"id": "p19", "type": "journal", "authors": "P. Song, T. Wang, S. Jiang, C. Guo, R. Wang, L. Yang, Y. Zhou, G. Zheng#", "title": "Freeform illuminator for computational microscopy", "venue": "Intelligent Computing", "meta": "2023, 2, 0015", "year": 2023, "link": "https://spj.science.org/doi/10.34133/icomputing.0015", "note": ""},
+    {"id": "p20", "type": "journal", "authors": "刘振, 朱昊, 周游, 马展, 曹汛#", "title": "物理模型引导的智能相位成像 (Intelligent phase imaging guided by physics models)", "venue": "物联网学报", "meta": "2023, 7(2), 35-42", "year": 2023, "link": "http://www.infocomm-journal.com/wlw/CN/10.11959/j.issn.2096-3750.2023.00345", "note": ""},
+    {"id": "p21", "type": "journal", "authors": "朱昱敏, 刘吉梓, 周游, 王方旭, 潘鸣飞, 张方舟, 曹晨, 沈艳, 顾宁#", "title": "细胞生物信息学应用于疾病诊断的前景", "venue": "广西医科大学学报", "meta": "2023, 40(04), 533-542", "year": 2023, "link": "", "note": ""},
+    {"id": "p22", "type": "journal", "authors": "Y. Zhou*, B. Xiong*, W. Song, X. Zhang, G. Zheng, Q. Dai#, X. Cao#", "title": "Light-field micro-endoscopy using a fiber bundle: a snapshot 3D epi-fluorescence endoscope", "venue": "Photonics Research", "meta": "2022, 10(9), 2247-2260", "year": 2022, "link": "https://opg.optica.org/PRJ/abstract.cfm?uri=PRJ-10-9-2247", "note": "Editor's Pick"},
+    {"id": "p23", "type": "journal", "authors": "X. Hua*, Y. Wang*, S. Wang*#, X. Zou, Y. Zhou, L. Lin, F. Yan, X. Cao#, S. Xiao#, D. Tsai#, J. Han, Z. Wang#, S. Zhu#", "title": "Ultra-compact snapshot spectral light-field imaging", "venue": "Nature Communications", "meta": "2022, 13, 2732", "year": 2022, "link": "https://www.nature.com/articles/s41467-022-30439-9", "note": ""},
+    {"id": "p24", "type": "journal", "authors": "H. Zhu*, Z. Liu*, Y. Zhou#, Z. Ma, X. Cao#", "title": "DNF: Diffractive Neural Field for Lensless Microscopic Imaging", "venue": "Optics Express", "meta": "2022, 30(11), 18168-18178", "year": 2022, "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-30-11-18168&id=472748", "note": ""},
+    {"id": "p25", "type": "journal", "authors": "Y. Guo, R. Guo, Q. Pan, Y. Zhou, Z. Zhang#, G. Zheng, J. Zhong", "title": "Robust multi-angle structured illumination lensless microscopy via illumination angle calibration", "venue": "Optics Letters", "meta": "2022, 47(7), 1847-1850", "year": 2022, "link": "https://opg.optica.org/ol/abstract.cfm?uri=ol-47-7-1847", "note": ""},
+    {"id": "p26", "type": "journal", "authors": "C. Lu*, Y. Zhou*, Y. Guo*, S. Jiang, Z. Zhang#, G. Zheng, J. Zhong", "title": "Mask-modulated lensless imaging via translated structured illumination", "venue": "Optics Express", "meta": "2021, 29(8), 12491-12501", "year": 2021, "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-29-8-12491&id=449969", "note": ""},
+    {"id": "p27", "type": "journal", "authors": "B. Xiong*, X. Li*, Y. Zhou, L. Wang, J. Wu, Q. Dai#", "title": "Snapshot Partially Coherent Diffraction Tomography", "venue": "Physical Review Applied", "meta": "2021, 15(4), 044048", "year": 2021, "link": "https://journals.aps.org/prapplied/abstract/10.1103/PhysRevApplied.15.044048", "note": ""},
+    {"id": "p28", "type": "journal", "authors": "Y. Zhou*, B. Xiong*, X. Li, Q. Dai, X. Cao#", "title": "Lensless imaging of plant samples using the cross-polarized light", "venue": "Optics Express", "meta": "2020, 28(21), 31611-31623", "year": 2020, "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-28-21-31611&id=440890", "note": ""},
+    {"id": "p29", "type": "journal", "authors": "Y. Zhou*, X. Hua*, Z. Zhang, X. Hu, K. Dixit, J. Zhong, G. Zheng, X. Cao#", "title": "Wirtinger gradient descent optimization for reducing Gaussian noise in lensless microscopy", "venue": "Optics and Lasers in Engineering", "meta": "2020, 134, 106131", "year": 2020, "link": "https://www.sciencedirect.com/science/article/pii/S0143816620300671", "note": ""},
+    {"id": "p30", "type": "journal", "authors": "X. Hua, Y. Cai, Y. Zhou, F. Yan, X. Cao#", "title": "Leukocyte super-resolution via geometry prior and structural consistency", "venue": "Journal of Biomedical Optics", "meta": "2020, 25(10), 106501", "year": 2020, "link": "https://www.spiedigitallibrary.org/journals/journal-of-biomedical-optics/volume-25/issue-10/106501/Leukocyte-super-resolution-via-geometry-prior-and-structural-consistency/10.1117/1.JBO.25.10.106501.full", "note": ""},
+    {"id": "p31", "type": "journal", "authors": "Z. Lu, J. Wu, H. Qiao, Y. Zhou, T. Yan, Z. Zhou, X. Zhang, J. Fan, Q. Dai#", "title": "Phase-space deconvolution for light field microscopy", "venue": "Optics Express", "meta": "2019, 27(13), 18131-18145", "year": 2019, "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-27-13-18131&id=413790", "note": ""},
+    {"id": "p32", "type": "journal", "authors": "Y. Zhou, J. Wu, J. Suo, X. Han, G. Zheng, Q. Dai#", "title": "Single-shot lensless imaging via simultaneous multi-angle LED illumination", "venue": "Optics Express", "meta": "2018, 26(17), 21418-21432", "year": 2018, "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-26-17-21418&id=396015", "note": ""},
+    {"id": "p33", "type": "journal", "authors": "Z. Zhang*, Y. Zhou*, S. Jiang, K. Guo, K. Hoshino, J. Zhong, J. Suo, Q. Dai, G. Zheng#", "title": "Invited Article: Mask-modulated lensless imaging with multi-angle illuminations", "venue": "APL Photonics", "meta": "2018, 3(6), 060803", "year": 2018, "link": "https://pubs.aip.org/aip/app/article/3/6/060803/894559", "note": ""},
+    {"id": "p34", "type": "journal", "authors": "Y. Zhou, J. Wu, Z. Bian, J. Suo, G. Zheng, Q. Dai#", "title": "Fourier ptychographic microscopy using wavelength multiplexing", "venue": "Journal of Biomedical Optics", "meta": "2017, 22(6), 066006", "year": 2017, "link": "https://www.spiedigitallibrary.org/journals/journal-of-biomedical-optics/volume-22/issue-6/066006/Fourier-ptychographic-microscopy-using-wavelength-multiplexing/10.1117/1.JBO.22.6.066006.full", "note": ""},
+    {"id": "p35", "type": "journal", "authors": "X. Wang, Q. Zhang, Y. Zhou, J. Qian, H. Zou#", "title": "Linear canonical transform related operators and their applications to signal analysis—Part I: Fundamentals", "venue": "Chinese Journal of Electronics", "meta": "2015, 24(1), 102-109", "year": 2015, "link": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/cje.2015.01.017", "note": ""},
+    {"id": "p36", "type": "journal", "authors": "X. Wang, Q. Zhang, Y. Zhou, J. Qian, H. Zou#", "title": "Linear Canonical Transform Related Operators and Their Applications to Signal Analysis—Part II: Applications", "venue": "Chinese Journal of Electronics", "meta": "2015, 24(2), 312-316", "year": 2015, "link": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/cje.2015.04.014", "note": ""},
+    {"id": "p37", "type": "conf", "track": "Artificial Intelligence", "authors": "Y. Zhang*, Y. Zhou*, C. Su, Z. Cheng, Z. Yu, B. Xiong#, T. Huang, X. Cao", "title": "Spike Imaging Velocimetry: Dense Motion Estimation of Fluids Using Spike Streams", "venue": "AAAI Conference on Artificial Intelligence (AAAI)", "meta": "Singapore", "year": 2026, "link": "", "note": ""},
+    {"id": "p38", "type": "conf", "track": "Artificial Intelligence", "authors": "B. Jiang*, B. Xiong*, B. Qu, M. S. Asif, Y. Zhou#, Z. Ma#", "title": "EDformer: Transformer-Based Event Denoising Across Varied Noise Level", "venue": "European Conference on Computer Vision (ECCV)", "meta": "Milan, Italy", "year": 2024, "link": "https://link.springer.com/chapter/10.1007/978-3-031-73383-3_12", "note": ""},
+    {"id": "p39", "type": "conf", "track": "Artificial Intelligence", "authors": "H. Ge, Q. Feng, H. Jia, X. Li, X. Yin, Y. Zhou, J. Yang, K. Li#", "title": "LPSNet: End-to-End Human Pose and Shape Estimation with Lensless Imaging", "venue": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)", "meta": "Seattle, USA", "year": 2024, "link": "https://ieeexplore.ieee.org/document/10658368", "note": ""},
+    {"id": "p40", "type": "conf", "track": "Artificial Intelligence", "authors": "C. Su, Z. Ye, Y. Xiao, Y. Zhou, Z. Cheng, B. Xiong, T. Huang", "title": "Intensity-robust autofocus for spike camera", "venue": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)", "meta": "Seattle, USA", "year": 2024, "link": "https://openaccess.thecvf.com/content/CVPR2024/html/Su_Intensity-Robust_Autofocus_for_Spike_Camera_CVPR_2024_paper.html", "note": ""},
+    {"id": "p41", "type": "conf", "track": "Artificial Intelligence", "authors": "B. Xiong, C. Su, Z. Lin, Y. Chen, Y. Zhou, Z. Cheng, T. Huang", "title": "Real-time parameter evaluation of high-speed microfluidic droplets using continuous spike streams", "venue": "ACM International Conference on Multimedia (ACM MM)", "meta": "Melbourne, Australia", "year": 2024, "link": "https://dl.acm.org/doi/abs/10.1145/3664647.3681378", "note": ""},
+    {"id": "p42", "type": "conf", "track": "Artificial Intelligence", "authors": "S. Xie*, H. Zhu*, Z. Liu, Q. Zhang, Y. Zhou, X. Cao#, Z. Ma#", "title": "DINER: Disorder-Invariant Implicit Neural Representation", "venue": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)", "meta": "Vancouver, Canada", "year": 2023, "link": "https://ieeexplore.ieee.org/document/10205321", "note": "Highlight, 2.5% of submissions"},
+    {"id": "p43", "type": "conf", "track": "Optics and Photonics", "authors": "C. Xu, Z. Jin, B. Xiong, Y. Zhou#, X. Cao", "title": "3D Image Restoration using Implicit Neural Representations for Brightfield and Widefield Fluorescence Microscopy", "venue": "Computational Optical Sensing and Imaging (COSI)", "meta": "Toulouse, France", "year": 2024, "link": "https://opg.optica.org/abstract.cfm?URI=COSI-2024-CTh4B.5", "note": ""},
+    {"id": "p44", "type": "conf", "track": "Optics and Photonics", "authors": "Y. Liu, W. Song, Y. Zhou#, B. Xiong, X. Cao", "title": "Hybrid Scanning Lensless Imaging by Diffractive Neural Field", "venue": "Computational Optical Sensing and Imaging (COSI)", "meta": "Toulouse, France", "year": 2024, "link": "https://opg.optica.org/abstract.cfm?URI=COSI-2024-CF1A.4", "note": ""},
+    {"id": "p45", "type": "conf", "track": "Optics and Photonics", "authors": "B. Xiong, R. Wang, Y. Zhou, X. Sun, Y. Yang, C. Su", "title": "High-speed phase transition imaging using spike streams", "venue": "3D Image Acquisition and Display", "meta": "Toulouse, France", "year": 2024, "link": "https://opg.optica.org/abstract.cfm?URI=3D-2024-JD6A.2", "note": ""},
+    {"id": "p46", "type": "conf", "track": "Optics and Photonics", "authors": "Y. Zhou, B. Xiong#, W. Song, X. Cao", "title": "Dual-modal light-field micro-endoscopy", "venue": "Frontiers in Optics + Laser Science (FiO+LS)", "meta": "New York, USA", "year": 2022, "link": "https://opg.optica.org/abstract.cfm?uri=FiO-2022-JW4B.45", "note": ""},
+    {"id": "p47", "type": "conf", "track": "Optics and Photonics", "authors": "W. Song, Y. Zhou#, B. Xiong, X. Cao", "title": "Lensless Imaging By Binary Mask Rotation", "venue": "Frontiers in Optics + Laser Science (FiO+LS)", "meta": "New York, USA", "year": 2022, "link": "https://opg.optica.org/abstract.cfm?uri=FiO-2022-JTu5B.8", "note": ""},
+    {"id": "p48", "type": "conf", "track": "Optics and Photonics", "authors": "C. Su, T. Liu, C. Chen, H. Wang, J. Hu, Y. Zhou#, B. Xiong#, X. Cao", "title": "Analysis of pre-processing methods for lossless compression of multi-component medical images based on latent variable models", "venue": "Frontiers in Optics + Laser Science (FiO+LS)", "meta": "New York, USA", "year": 2022, "link": "https://opg.optica.org/abstract.cfm?uri=FiO-2022-JW5B.53", "note": ""},
+    {"id": "p49", "type": "conf", "track": "Optics and Photonics", "authors": "W. Song, Y. Zhou#, B. Xiong, X. Cao", "title": "Multi-wavelength Lensless Microscopy Via A Linear Variable Bandpass Filter", "venue": "Biophotonics Congress: Biomedical Optics", "meta": "Florida, USA", "year": 2022, "link": "https://opg.optica.org/abstract.cfm?uri=BRAIN-2022-JTu3A.21", "note": ""},
+    {"id": "p50", "type": "conf", "track": "Optics and Photonics", "authors": "Y. Zhou, X. Hua, W. Song, X. Cao#", "title": "A novel denoising reconstruction algorithm for multi-height lensless microscopy", "venue": "Biophotonics Congress: Biomedical Optics", "meta": "Washington D.C., USA", "year": 2020, "link": "https://opg.optica.org/abstract.cfm?uri=Microscopy-2020-MTh4A.5", "note": ""},
+    {"id": "p51", "type": "conf", "track": "Optics and Photonics", "authors": "Y. Zhou, G. Zhang, J. Wu, M. Choi, Q. Dai#", "title": "Wavefront shaping for achieving high NA GRIN-lens-based endoscopic imaging", "venue": "Biophotonics Congress: Optics in the Life Sciences", "meta": "Arizona, USA", "year": 2019, "link": "https://opg.optica.org/abstract.cfm?uri=NTM-2019-NT2C.4", "note": ""},
+    {"id": "p52", "type": "conf", "track": "Optics and Photonics", "authors": "Y. Zhou, J. Wu, Z. Bian, G. Zheng, Q. Dai#", "title": "Wavelength multiplexed Fourier ptychographic microscopy", "venue": "Computational Optical Sensing and Imaging (COSI)", "meta": "Heidelberg, Germany", "year": 2016, "link": "https://opg.optica.org/abstract.cfm?URI=COSI-2016-CT2D.4", "note": ""},
+    {"id": "p53", "type": "patent", "authors": "Q. Dai, Y. Zhou, J. Wu, G. Zhang", "title": "Microscopic Imaging system and method", "venue": "USA", "meta": "US11262568B2", "year": 0, "link": "", "note": ""},
+    {"id": "p54", "type": "patent", "authors": "Q. Dai, Y. Zhou, J. Wu, J. Fan", "title": "Wavelength multiplexed Fourier ptychographic microscopy system and method", "venue": "USA", "meta": "US10185137B2", "year": 0, "link": "", "note": ""},
+    {"id": "p55", "type": "patent", "authors": "Q. Dai, Y. Zhou, J. Wu, G. Zhang", "title": "Rapid three-dimensional imaging system and method based on multi-angle 4Pi microscope, and storage medium", "venue": "USA", "meta": "US11719921B2", "year": 0, "link": "", "note": ""}
+  ],
+  "honors": [
+    {"text": "Outstanding Research Achievements of Nanjing City, 2026"},
+    {"text": "Young Talent Support Program of Jiangsu Province, 2025"},
+    {"text": "Selected Recipient of the Jiangsu Provincial Innovation & Entrepreneurship Doctor Program, 2020"},
+    {"text": "Short-term Overseas Exchange Scholarship of Tsinghua University, 2016"},
+    {"text": "Best Oral Presentation in the PhD Forum of Tsinghua University, 2015"},
+    {"text": "Excellent Laboratory Construction Award of Tsinghua University, first prize, 2015"},
+    {"text": "Technological Invention Award of Shanghai University Student, third prize, 2012"},
+    {"text": "Technological Invention Award of East China Normal University, first prize, 2011"},
+    {"text": "Excellent Student of East China Normal University, 2010"},
+    {"text": "Outstanding Student Scholarship of East China Normal University (3 times), 2008-2012"}
+  ],
+  "codes": [
+    {"name": "3D Gaussian adaptive reconstruction for Fourier light-field microscopy", "url": "https://github.com/Chaos1025/3DGAT", "desc": ""},
+    {"name": "CardiacField: Computational Echocardiography for Automated Heart Function Estimation Using 2DE Probes", "url": "https://njuvision.github.io/CardiacField/", "desc": ""},
+    {"name": "Continuous 3D Myocardial Motion Tracking via Echocardiography", "url": "https://njuvision.github.io/NeuralCMF/", "desc": ""},
+    {"name": "DINER: Disorder-Invariant Implicit Neural Representation", "url": "https://ezio77.github.io/DINER-website/", "desc": ""},
+    {"name": "DNF: Diffractive Neural Field for Lensless Microscopic Imaging", "url": "https://github.com/liuzhen0212/DNF", "desc": ""},
+    {"name": "Wirtinger gradient descent optimization for reducing Gaussian noise in lensless microscopy", "url": "https://github.com/ZhouYou-NJU/WGDG_demo", "desc": ""}
+  ]
+}
+</script>
+<script>
+'use strict';
+let D = null, MODE = 'server', saveTimer = null, curTab = 'profile';
+
+/* ---------- 数据载入 / 保存 ---------- */
+async function load() {
+  const fallback = JSON.parse(document.getElementById('default-data').textContent);
+  try {
+    const r = await fetch('/api/data');
+    if (!r.ok) throw 0;
+    const j = await r.json();
+    if (!j || !j.profile) throw 0;
+    D = j; MODE = 'server';
+  } catch (e) {
+    MODE = 'local';
+    const s = localStorage.getItem('labSiteData');
+    D = s ? JSON.parse(s) : JSON.parse(JSON.stringify(fallback));
+    if (!D.profile) D = JSON.parse(JSON.stringify(fallback));
+  }
+  const m = document.getElementById('mode');
+  m.textContent = MODE === 'server' ? '● 已连接本地服务' : '● 浏览器本地模式';
+  m.className = MODE === 'server' ? '' : 'local';
+}
+function save() {
+  document.getElementById('saveStatus').textContent = '保存中…';
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(doSave, 500);
+}
+async function doSave() {
+  const j = JSON.stringify(D);
+  if (MODE === 'server') {
+    try {
+      const r = await fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: j });
+      if (!r.ok) throw 0;
+      document.getElementById('saveStatus').textContent = '已保存 ✓';
+      return;
+    } catch (e) { MODE = 'local'; }
+  }
+  localStorage.setItem('labSiteData', j);
+  document.getElementById('saveStatus').textContent = '已保存(浏览器) ✓';
+}
+function esc(s) { return (s == null ? '' : String(s)).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200);
+}
+function uid() { return 'm' + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36); }
+
+/* ---------- Tab 切换 ---------- */
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  curTab = b.dataset.tab;
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('active', x === b));
+  ['profile','members','pubs','honors','codes','publish'].forEach(t =>
+    document.getElementById('tab-' + t).style.display = t === curTab ? '' : 'none');
+  renderAll();
+});
+function renderAll() {
+  renderProfile(); renderMembers(); renderPubs(); renderHonors(); renderCodes(); renderPublish();
+}
+
+/* ---------- 文件选择 ---------- */
+function pickFile(accept, cb) {
+  const inp = document.getElementById('fileInput');
+  inp.value = ''; inp.accept = accept;
+  inp.onchange = () => { if (inp.files[0]) cb(inp.files[0]); };
+  inp.click();
+}
+function fileB64(file) {
+  return new Promise(res => { const r = new FileReader(); r.onload = () => res(r.result.split(',')[1]); r.readAsDataURL(file); });
+}
+async function uploadPhoto(file) {
+  if (MODE === 'server') {
+    const r = await fetch('/api/photo', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: file.name, b64: await fileB64(file) }) });
+    const j = await r.json();
+    if (j.ok) return j.path;
+    throw new Error(j.error || '上传失败');
+  }
+  return new Promise(res => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(file); });
+}
+async function wordToHtml(file) {
+  if (MODE === 'server') {
+    const r = await fetch('/api/word2html', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: file.name, b64: await fileB64(file) }) });
+    const j = await r.json();
+    if (j.ok) return j.html;
+    throw new Error(j.error || '解析失败');
+  }
+  // 浏览器本地模式：尝试 CDN mammoth
+  try {
+    await new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js';
+      s.onload = res; s.onerror = rej; document.head.appendChild(s);
+      setTimeout(rej, 8000);
+    });
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await window.mammoth.convertToHtml({ arrayBuffer });
+    return result.value;
+  } catch (e) {
+    throw new Error('浏览器本地模式无法解析 Word，请双击「启动编辑器.bat」后使用');
+  }
+}
+
+/* ---------- 通用富文本工具条 ---------- */
+function rteToolbar(id) {
+  return `<div class="toolbar">
+    <button type="button" onmousedown="event.preventDefault()" onclick="fmt('${id}','bold')"><b>B</b></button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="fmt('${id}','italic')"><i>I</i></button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="fmt('${id}','underline')"><u>U</u></button>
+    <button type="button" onclick="addLink('${id}')">🔗 链接</button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="fmt('${id}','removeFormat')">清除格式</button>
+  </div>`;
+}
+function fmt(id, cmd) { document.execCommand(cmd, false, null); document.getElementById(id).focus(); }
+function addLink(id) {
+  const url = prompt('请粘贴链接 URL：');
+  if (url) document.execCommand('createLink', false, url);
+  document.getElementById(id).focus();
+}
+
+/* ================= 个人信息 ================= */
+function renderProfile() {
+  const p = D.profile;
+  const eduRows = (p.education || []).map((e, i) => `
+    <div class="list-row">
+      <div class="grow">
+        <div class="row3">
+          <div class="field"><label>学位 / 阶段</label><input type="text" value="${esc(e.degree)}" oninput="D.profile.education[${i}].degree=this.value;save()"></div>
+          <div class="field"><label>时间</label><input type="text" value="${esc(e.period)}" oninput="D.profile.education[${i}].period=this.value;save()"></div>
+          <div class="field"><label>单位地点</label><input type="text" value="${esc(e.place)}" oninput="D.profile.education[${i}].place=this.value;save()"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>导师姓名（可留空）</label><input type="text" value="${esc(e.sup)}" oninput="D.profile.education[${i}].sup=this.value;save()"></div>
+          <div class="field"><label>导师链接（可留空）</label><input type="text" value="${esc(e.supUrl)}" oninput="D.profile.education[${i}].supUrl=this.value;save()"></div>
+        </div>
+      </div>
+      <div class="ops">
+        <button class="mini" onclick="moveEdu(${i},-1)">↑</button>
+        <button class="mini" onclick="moveEdu(${i},1)">↓</button>
+        <button class="mini danger" onclick="delEdu(${i})">删除</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('tab-profile').innerHTML = `
+    <h2 class="sec">基本信息</h2>
+    <div class="row2">
+      <div>
+        <div class="field"><label>姓名（英文）</label><input type="text" value="${esc(p.name)}" oninput="D.profile.name=this.value;save()"></div>
+        <div class="field"><label>姓名（中文，可选）</label><input type="text" value="${esc(p.nameCn)}" oninput="D.profile.nameCn=this.value;save()"></div>
+        <div class="field"><label>职称</label><input type="text" value="${esc(p.title)}" oninput="D.profile.title=this.value;save()"></div>
+        <div class="field"><label>单位</label><input type="text" value="${esc(p.affiliation)}" oninput="D.profile.affiliation=this.value;save()"></div>
+        <div class="field"><label>课题组名称（Lab Name，显示在导航栏/首页/页脚）</label><input type="text" value="${esc(p.labName)}" placeholder="如 Pho-FreeU Lab" oninput="D.profile.labName=this.value;save()"></div>
+      </div>
+      <div>
+        <div class="photobox" style="text-align:center">
+          ${p.avatar ? `<img src="${esc(p.avatar)}" style="width:120px;border-radius:8px;box-shadow:0 1px 5px rgba(0,0,0,.2)">` : `<div class="nop" style="width:120px;height:140px;margin:0 auto;display:flex;align-items:center;justify-content:center;background:#e2e8f0;border-radius:8px;color:#889">无照片</div>`}
+          <div style="margin-top:8px"><button onclick="changeAvatar()">更换个人照片</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="row3">
+      <div class="field"><label>地址 / 邮编</label><input type="text" value="${esc(p.address)}" oninput="D.profile.address=this.value;save()"></div>
+      <div class="field"><label>Email</label><input type="text" value="${esc(p.email)}" oninput="D.profile.email=this.value;save()"></div>
+      <div class="field"><label>学校主页链接</label><input type="text" value="${esc(p.schoolLink)}" oninput="D.profile.schoolLink=this.value;save()"></div>
+    </div>
+    <div class="field"><label>办公地点（每行一条）</label><textarea oninput="D.profile.offices=this.value;save()">${esc(p.offices)}</textarea></div>
+    <div class="field"><label>论文标注说明（显示在 Publications 页顶部）</label><input type="text" value="${esc(p.pubNote)}" oninput="D.profile.pubNote=this.value;save()"></div>
+    <h2 class="sec">About Me（富文本：选中文字后加粗 / 插入链接）</h2>
+    ${rteToolbar('aboutBox')}
+    <div class="rte" id="aboutBox" contenteditable="true" onblur="D.profile.aboutHtml=this.innerHTML;save()">${p.aboutHtml || ''}</div>
+    <h2 class="sec">Services（富文本）</h2>
+    ${rteToolbar('svcBox')}
+    <div class="rte" id="svcBox" contenteditable="true" onblur="D.profile.servicesHtml=this.innerHTML;save()">${p.servicesHtml || ''}</div>
+    <h2 class="sec">Education <button class="mini" onclick="addEdu()" style="margin-left:8px">＋ 添加经历</button></h2>
+    ${eduRows || '<div class="hint">暂无教育经历，点击上方「添加经历」。</div>'}
+  `;
+}
+function addEdu() { D.profile.education = D.profile.education || []; D.profile.education.push({ degree: '', period: '', place: '', sup: '', supUrl: '' }); save(); renderProfile(); }
+function delEdu(i) { if (!confirm('删除这条教育经历？')) return; D.profile.education.splice(i, 1); save(); renderProfile(); }
+function moveEdu(i, d) { const a = D.profile.education, j = i + d; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; save(); renderProfile(); }
+async function changeAvatar() {
+  pickFile('image/*', async f => {
+    try { D.profile.avatar = await uploadPhoto(f); save(); renderProfile(); toast('头像已更新'); }
+    catch (e) { toast(e.message); }
+  });
+}
+
+/* ================= 团队成员 ================= */
+function memberCard(m, group, i) {
+  const isCur = group === 'current';
+  const photo = m.photo
+    ? `<img src="${esc(m.photo)}" title="点击更换照片" onclick="changePhoto('${group}',${i})">`
+    : `<div class="nop" onclick="changePhoto('${group}',${i})">上传照片</div>`;
+  const info = isCur
+    ? `<div class="row2">
+        <div class="field"><label>学位</label><input type="text" value="${esc(m.degree)}" oninput="D.members.${group}[${i}].degree=this.value;save()"></div>
+        <div class="field"><label>年级 / 入学年份</label><input type="text" value="${esc(m.year)}" oninput="D.members.${group}[${i}].year=this.value;save()"></div>
+      </div>`
+    : `<div class="row2">
+        <div class="field"><label>学位</label><input type="text" value="${esc(m.degree)}" oninput="D.members.${group}[${i}].degree=this.value;save()"></div>
+        <div class="field"><label>在读时间</label><input type="text" value="${esc(m.period)}" oninput="D.members.${group}[${i}].period=this.value;save()"></div>
+      </div>
+      <div class="field"><label>毕业去向</label><input type="text" value="${esc(m.now)}" oninput="D.members.${group}[${i}].now=this.value;save()"></div>`;
+  const enabled = m.homepageEnabled && (m.homepageHtml || '').trim();
+  return `
+  <div class="mcard">
+    <div class="photobox">${photo}</div>
+    <div class="field" style="margin-top:8px"><label>姓名</label><input type="text" value="${esc(m.name)}" oninput="D.members.${group}[${i}].name=this.value;save()"></div>
+    ${info}
+    <div class="field"><label>外部个人主页链接（有则优先显示）</label><input type="text" placeholder="https://..." value="${esc(m.link)}" oninput="D.members.${group}[${i}].link=this.value;save()"></div>
+    <div class="chk"><input type="checkbox" ${m.homepageEnabled ? 'checked' : ''} onchange="D.members.${group}[${i}].homepageEnabled=this.checked;save();renderMembers()"> 启用独立个人主页</div>
+    ${m.homepageEnabled ? `
+      <div class="ops">
+        <button class="mini primary" onclick="uploadWord('${group}',${i})">📄 上传Word生成主页</button>
+        <button class="mini" onclick="editHome('${group}',${i})">✏️ 编辑主页内容</button>
+        ${MODE === 'server' ? `<button class="mini" onclick="previewHome('${group}',${i})">👁 预览</button>` : ''}
+      </div>
+      <div class="exp" style="margin-top:6px">${enabled ? '✅ 主页内容已就绪，导出网站后将生成 members/' + slug(m.name) + '.html' : '⚠️ 还没有主页内容：可上传 Word 或手动编辑'}</div>` : ''}
+    <div class="ops">
+      <button class="mini" onclick="moveMember('${group}',${i},-1)">↑</button>
+      <button class="mini" onclick="moveMember('${group}',${i},1)">↓</button>
+      <button class="mini danger" onclick="delMember('${group}',${i})">删除</button>
+    </div>
+  </div>`;
+}
+function slug(name) { const s = (name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); return s || 'member'; }
+function renderMembers() {
+  const cur = (D.members.current || []).map((m, i) => memberCard(m, 'current', i)).join('');
+  const alm = (D.members.alumni || []).map((m, i) => memberCard(m, 'alumni', i)).join('');
+  document.getElementById('tab-members').innerHTML = `
+    <h2 class="sec">在读成员 Group Members
+      <button class="mini primary" style="margin-left:8px" onclick="addMember('current')">＋ 添加成员</button></h2>
+    <div class="hint">每位成员都可以勾选「启用独立个人主页」：<b>上传 Word 文档即可自动生成其个人主页</b>（支持标题、加粗、列表、链接、图片），也可手动编辑内容。</div>
+    <div class="mgrid">${cur || '<div class="hint">暂无成员</div>'}</div>
+    <h2 class="sec">已毕业成员 Alumni
+      <button class="mini primary" style="margin-left:8px" onclick="addMember('alumni')">＋ 添加成员</button></h2>
+    <div class="mgrid">${alm || '<div class="hint">暂无成员</div>'}</div>`;
+}
+function addMember(group) {
+  const m = { id: uid(), name: 'New Member', degree: 'Ph.D', year: String(new Date().getFullYear()), photo: '', link: '', homepageEnabled: false, homepageHtml: '', period: '', now: '' };
+  D.members[group] = D.members[group] || []; D.members[group].unshift(m);
+  save(); renderMembers(); toast('已添加，请编辑信息并上传照片');
+}
+function delMember(group, i) { if (!confirm('确定删除该成员？')) return; D.members[group].splice(i, 1); save(); renderMembers(); }
+function moveMember(group, i, d) { const a = D.members[group], j = i + d; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; save(); renderMembers(); }
+function changePhoto(group, i) {
+  pickFile('image/*', async f => {
+    try { D.members[group][i].photo = await uploadPhoto(f); save(); renderMembers(); toast('照片已更新'); }
+    catch (e) { toast(e.message); }
+  });
+}
+async function uploadWord(group, i) {
+  pickFile('.docx', async f => {
+    toast('正在解析 Word…');
+    try {
+      const html = await wordToHtml(f);
+      D.members[group][i].homepageHtml = html;
+      D.members[group][i].homepageEnabled = true;
+      await doSave(); renderMembers(); toast('✅ 已根据 Word 生成个人主页内容');
+    } catch (e) { toast(e.message); }
+  });
+}
+function editHome(group, i) {
+  const m = D.members[group][i];
+  openModal('编辑个人主页内容 — ' + m.name, `
+    <div class="hint">可直接粘贴 HTML（从 Word「另存为网页」复制的代码也可以）。图片若使用上传功能会自动保存。</div>
+    <div class="field"><textarea id="homeHtml" style="min-height:320px;font-family:Consolas,monospace;font-size:12.5px">${esc(m.homepageHtml)}</textarea></div>
+  `, () => {
+    m.homepageHtml = document.getElementById('homeHtml').value;
+    m.homepageEnabled = true; save(); renderMembers(); toast('主页内容已保存');
+  });
+}
+async function previewHome(group, i) {
+  const m = D.members[group][i];
+  if (!m.homepageEnabled || !(m.homepageHtml || '').trim()) { toast('请先生成主页内容'); return; }
+  await doSave();
+  try { await fetch('/api/export'); } catch (e) {}
+  window.open('/site/members/' + slug(m.name) + '.html');
+}
+
+/* ================= 论文发表 ================= */
+let pubFilter = 'all';
+function pubRow(p, idx) {
+  const tmap = { journal: '期刊', conf: '会议', patent: '专利' };
+  const titleHtml = p.link ? `<a href="${esc(p.link)}" target="_blank" class="ttl">${esc(p.title)}</a>` : `<span class="ttl">${esc(p.title)}</span>`;
+  let sub = esc(p.authors || '');
+  if (p.type === 'journal') sub += ` · ${esc(p.venue)}, ${esc(p.meta)}, ${p.year || ''}`;
+  else if (p.type === 'conf') sub += ` · ${esc(p.venue)}, ${esc(p.meta)}, ${p.year || ''}`;
+  else sub += ` · ${esc(p.venue)}, ${esc(p.meta)}`;
+  if (p.note) sub += ` · (${esc(p.note)})`;
+  const featCls = p.featured ? ' featured' : '';
+  const featBadge = p.featured ? `<span class="chip" style="background:#fff3cf;color:#9c7a00">⭐ 亮点展示${p.image ? ' · 已配图' : ''}</span>` : '';
+  return `<div class="list-row${featCls}">
+    <div class="grow">${titleHtml}<span class="chip">${tmap[p.type]}</span>${p.type === 'conf' && p.track ? `<span class="chip">${esc(p.track)}</span>` : ''}${featBadge}<div class="sub">${sub}</div></div>
+    <div class="ops">
+      <button class="mini ${p.featured ? 'star-on' : ''}" title="设为亮点展示" onclick="toggleFeatured('${p.id}')">⭐</button>
+      <button class="mini" onclick="editPub('${p.id}')">编辑</button>
+      <button class="mini" onclick="movePub(${idx},-1)">↑</button>
+      <button class="mini" onclick="movePub(${idx},1)">↓</button>
+      <button class="mini danger" onclick="delPub('${p.id}')">删除</button>
+    </div></div>`;
+}
+function renderPubs() {
+  const list = D.publications || [];
+  let html = `<h2 class="sec">快速添加论文（粘贴链接）</h2>
+  <div class="quick">
+    <select id="qType"><option value="journal">期刊论文</option><option value="conf">会议论文</option><option value="patent">专利</option></select>
+    <input id="qTitle" placeholder="论文标题（必填）">
+    <input id="qLink" placeholder="粘贴论文链接 https://... （可选）">
+    <input id="qYear" placeholder="年份" value="${new Date().getFullYear()}">
+    <button class="primary" onclick="quickAddPub()">＋ 快速添加</button>
+  </div>
+  <div class="hint">添加后在下方列表点「编辑」完善作者、期刊、备注等信息。标注 * 共同一作、# 通讯作者请直接写在作者栏。</div>
+  <h2 class="sec">论文列表
+    <span style="margin-left:10px">
+      <button class="mini ${pubFilter === 'all' ? 'primary' : ''}" onclick="setFilter('all')">全部 (${list.length})</button>
+      <button class="mini ${pubFilter === 'journal' ? 'primary' : ''}" onclick="setFilter('journal')">期刊 (${list.filter(p => p.type === 'journal').length})</button>
+      <button class="mini ${pubFilter === 'conf' ? 'primary' : ''}" onclick="setFilter('conf')">会议 (${list.filter(p => p.type === 'conf').length})</button>
+      <button class="mini ${pubFilter === 'patent' ? 'primary' : ''}" onclick="setFilter('patent')">专利 (${list.filter(p => p.type === 'patent').length})</button>
+      <button class="mini" onclick="editPub(null)">＋ 新建论文</button>
+    </span></h2>`;
+  const shown = list.map((p, idx) => ({ p, idx })).filter(x => pubFilter === 'all' || x.p.type === pubFilter);
+  if (pubFilter === 'all' || pubFilter === 'journal') {
+    const years = [...new Set(shown.filter(x => x.p.type === 'journal').map(x => x.p.year || 0))].sort((a, b) => b - a);
+    for (const y of years) {
+      html += `<div class="yearhead">${y ? y : '未分组'}（期刊）</div>`;
+      html += shown.filter(x => x.p.type === 'journal' && (x.p.year || 0) === y).map(x => pubRow(x.p, x.idx)).join('');
+    }
+  }
+  if (pubFilter === 'all' || pubFilter === 'conf') {
+    html += `<div class="yearhead">会议论文</div>`;
+    html += shown.filter(x => x.p.type === 'conf').map(x => pubRow(x.p, x.idx)).join('') || '<div class="hint">暂无</div>';
+  }
+  if (pubFilter === 'all' || pubFilter === 'patent') {
+    html += `<div class="yearhead">授权专利</div>`;
+    html += shown.filter(x => x.p.type === 'patent').map(x => pubRow(x.p, x.idx)).join('') || '<div class="hint">暂无</div>';
+  }
+  document.getElementById('tab-pubs').innerHTML = html;
+}
+function setFilter(f) { pubFilter = f; renderPubs(); }
+function quickAddPub() {
+  const type = document.getElementById('qType').value;
+  const title = document.getElementById('qTitle').value.trim();
+  const link = document.getElementById('qLink').value.trim();
+  const year = parseInt(document.getElementById('qYear').value) || 0;
+  if (!title) { toast('请填写论文标题'); return; }
+  const p = { id: 'p' + Date.now().toString(36), type, authors: '', title, venue: '', meta: '', year, link, note: '' };
+  if (type === 'conf') p.track = 'Artificial Intelligence';
+  D.publications.unshift(p); save(); renderPubs(); toast('已添加，可点击「编辑」完善信息');
+}
+function delPub(id) { if (!confirm('删除这篇论文？')) return; D.publications = D.publications.filter(p => p.id !== id); save(); renderPubs(); }
+function movePub(idx, d) {
+  const a = D.publications, t = a[idx].type;
+  let j = idx + d;
+  while (j >= 0 && j < a.length && a[j].type !== t) j += d;
+  if (j < 0 || j >= a.length) return;
+  [a[idx], a[j]] = [a[j], a[idx]]; save(); renderPubs();
+}
+function editPub(id) {
+  const p = id ? D.publications.find(x => x.id === id) : { id: 'p' + Date.now().toString(36), type: 'journal', track: 'Artificial Intelligence', authors: '', title: '', venue: '', meta: '', year: new Date().getFullYear(), link: '', note: '' };
+  const isNew = !id;
+  window._pubImgPending = p.image || '';
+  const trackSel = `
+    <div class="field"><label>会议分类</label>
+      <select id="fTrack">
+        <option value="Artificial Intelligence" ${p.track === 'Artificial Intelligence' ? 'selected' : ''}>Artificial Intelligence</option>
+        <option value="Optics and Photonics" ${p.track === 'Optics and Photonics' ? 'selected' : ''}>Optics and Photonics</option>
+        <option value="Other" ${p.track && !['Artificial Intelligence', 'Optics and Photonics'].includes(p.track) ? 'selected' : ''}>Other</option>
+      </select></div>`;
+  openModal((isNew ? '新增论文' : '编辑论文') , `
+    <div class="row2">
+      <div class="field"><label>类型</label>
+        <select id="fType" onchange="pubTypeChanged()">
+          <option value="journal" ${p.type === 'journal' ? 'selected' : ''}>期刊论文</option>
+          <option value="conf" ${p.type === 'conf' ? 'selected' : ''}>会议论文</option>
+          <option value="patent" ${p.type === 'patent' ? 'selected' : ''}>专利</option>
+        </select></div>
+      <div class="field" id="trackWrap" style="display:${p.type === 'conf' ? '' : 'none'}">${trackSel}</div>
+    </div>
+    <div class="field"><label>作者（* 共同一作，# 通讯作者）</label><input type="text" id="fAuthors" value="${esc(p.authors)}"></div>
+    <div class="field"><label>标题（必填）</label><input type="text" id="fTitle" value="${esc(p.title)}"></div>
+    <div class="row2">
+      <div class="field"><label id="venueLabel">期刊 / 会议名称</label><input type="text" id="fVenue" value="${esc(p.venue)}"></div>
+      <div class="field"><label id="metaLabel">年卷期页</label><input type="text" id="fMeta" value="${esc(p.meta)}"></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label>年份（专利可留空）</label><input type="number" id="fYear" value="${p.year || ''}"></div>
+      <div class="field" style="grid-column:span 2"><label>论文链接（直接粘贴）</label><input type="text" id="fLink" value="${esc(p.link)}" placeholder="https://doi.org/..."></div>
+    </div>
+    <div class="field"><label>备注（如 On the Cover / Highlight 等）</label><input type="text" id="fNote" value="${esc(p.note)}"></div>
+    <div class="chk" style="margin-top:12px"><input type="checkbox" id="fFeatured" ${p.featured ? 'checked' : ''} onchange="document.getElementById('featFields').style.display=this.checked?'':'none'"> ⭐ 设为亮点展示（在 Publications 页顶部以图文卡片呈现）</div>
+    <div id="featFields" style="display:${p.featured ? '' : 'none'};border:1px solid #eadfae;background:#fffdf3;border-radius:8px;padding:12px 14px;margin-top:10px">
+      <div class="field"><label>创新点说明（中英文均可，显示在卡片上）</label><textarea id="fSummary" style="min-height:64px" placeholder="一句话说明这篇工作的核心创新点…">${esc(p.summary || '')}</textarea></div>
+      <div class="field"><label>配图（可从论文链接自动抓取，或手动上传）</label>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <img id="fImgPrev" src="${esc(window._pubImgPending || p.image || '')}" onerror="this.style.display='none'" style="${(window._pubImgPending || p.image) ? 'max-height:90px;border-radius:6px;border:1px solid #dde4ec' : 'display:none'}">
+          <span id="fImgEmpty" class="exp" style="display:${(window._pubImgPending || p.image) ? 'none' : ''}">暂无配图</span>
+          <button type="button" onclick="pubImgUpload()">📤 上传图片</button>
+          <button type="button" onclick="pubImgFetch('${esc(p.link)}')">🌐 从论文链接抓取</button>
+          <button type="button" class="danger mini" onclick="pubImgClear()">移除配图</button>
+        </div>
+        <div class="exp" style="margin-top:5px">抓取原理：读取论文页面的 og:image 元数据；部分出版商（如 Wiley/Elsevier 部分页面）会屏蔽自动访问，失败时请手动上传截图。</div>
+      </div>
+      <div class="field"><label>补充链接（代码 / 数据集 / 项目主页等）</label>
+        <div id="fExtraLinks">${(p.extraLinks || []).map(l => extraLinkRow(l)).join('')}</div>
+        <button type="button" class="mini" onclick="addExtraLinkRow()">＋ 添加链接</button>
+      </div>
+    </div>
+  `, () => {
+    const g = i => document.getElementById(i).value.trim();
+    p.type = g('fType'); p.authors = g('fAuthors'); p.title = g('fTitle');
+    p.venue = g('fVenue'); p.meta = g('fMeta'); p.year = parseInt(g('fYear')) || 0;
+    p.link = g('fLink'); p.note = g('fNote');
+    p.featured = document.getElementById('fFeatured').checked;
+    p.summary = g('fSummary');
+    p.image = window._pubImgPending || '';
+    p.extraLinks = Array.from(document.querySelectorAll('#fExtraLinks .exlink')).map(r => ({
+      label: r.querySelector('.exlabel').value.trim(), url: r.querySelector('.exurl').value.trim()
+    })).filter(l => l.url);
+    if (p.type === 'conf') p.track = g('fTrack') === 'Other' ? 'Others' : g('fTrack');
+    if (!p.title) { toast('标题必填'); return false; }
+    if (isNew) D.publications.unshift(p);
+    save(); renderPubs(); toast('已保存');
+  });
+}
+function pubTypeChanged() {
+  const t = document.getElementById('fType').value;
+  document.getElementById('trackWrap').style.display = t === 'conf' ? '' : 'none';
+  document.getElementById('venueLabel').textContent = t === 'patent' ? '国家 / 地区' : (t === 'conf' ? '会议名称' : '期刊名称');
+  document.getElementById('metaLabel').textContent = t === 'patent' ? '专利号' : (t === 'conf' ? '会议地点' : '年卷期页');
+}
+
+/* ---------- 亮点展示：配图与补充链接 ---------- */
+function extraLinkRow(l) {
+  l = l || {};
+  return `<div class="exlink" style="display:flex;gap:6px;margin:4px 0">
+    <input class="exlabel" type="text" placeholder="名称(如 Code)" value="${esc(l.label || '')}" style="width:120px;padding:5px 8px;border:1px solid #ccd4de;border-radius:6px;flex-shrink:0">
+    <input class="exurl" type="text" placeholder="https://github.com/..." value="${esc(l.url || '')}" style="flex:1;padding:5px 8px;border:1px solid #ccd4de;border-radius:6px">
+    <button type="button" class="mini danger" onclick="this.parentNode.remove()">✕</button>
+  </div>`;
+}
+function addExtraLinkRow() { document.getElementById('fExtraLinks').insertAdjacentHTML('beforeend', extraLinkRow({})); }
+function showPubImg(src) {
+  const img = document.getElementById('fImgPrev'), empty = document.getElementById('fImgEmpty');
+  if (!img) return;
+  if (src) { img.src = src; img.style.cssText = 'max-height:90px;border-radius:6px;border:1px solid #dde4ec'; img.onerror = ''; if (empty) empty.style.display = 'none'; }
+  else { img.removeAttribute('src'); img.style.display = 'none'; if (empty) empty.style.display = ''; }
+}
+function pubImgUpload() {
+  pickFile('image/*', async f => {
+    try {
+      window._pubImgPending = await uploadPhoto(f);
+      showPubImg(window._pubImgPending);
+      toast('配图已上传，保存弹窗后生效');
+    } catch (e) { toast(e.message); }
+  });
+}
+async function pubImgFetch(url) {
+  url = (url || '').trim() || prompt('该论文没有填写链接，请输入要抓取的页面 URL：');
+  if (!url) return;
+  toast('正在抓取论文配图…');
+  try {
+    const r = await fetch('/api/fetchog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }) });
+    const j = await r.json();
+    if (j.ok) {
+      window._pubImgPending = j.path;
+      showPubImg(j.path);
+      toast('✅ 已抓取配图，保存弹窗后生效');
+    } else toast('抓取失败: ' + j.error);
+  } catch (e) { toast('抓取失败: ' + e.message); }
+}
+function pubImgClear() { window._pubImgPending = ''; showPubImg(''); }
+function toggleFeatured(id) {
+  const p = D.publications.find(x => x.id === id);
+  if (!p) return;
+  p.featured = !p.featured;
+  save(); renderPubs();
+  toast(p.featured ? '⭐ 已设为亮点展示（可再点「编辑」补充分享图与创新点说明）' : '已取消亮点展示');
+}
+
+/* ================= 荣誉奖项 ================= */
+function renderHonors() {
+  const text = (D.honors || []).map(h => h.text).join('\n');
+  document.getElementById('tab-honors').innerHTML = `
+    <h2 class="sec">Honors and Awards</h2>
+    <div class="hint">每行一条荣誉，顺序即显示顺序，可直接增删改行。</div>
+    <div class="field"><textarea id="honorsBox" style="min-height:340px;line-height:2" oninput="honorsChanged(this.value)">${esc(text)}</textarea></div>`;
+}
+function honorsChanged(v) {
+  D.honors = v.split('\n').map(s => s.trim()).filter(Boolean).map(t => ({ text: t }));
+  save();
+}
+
+/* ================= 相关代码 ================= */
+function renderCodes() {
+  const rows = (D.codes || []).map((c, i) => `
+    <div class="list-row">
+      <div class="grow">
+        <div class="row3">
+          <div class="field" style="grid-column:span 2"><label>名称</label><input type="text" value="${esc(c.name)}" oninput="D.codes[${i}].name=this.value;save()"></div>
+          <div class="field"><label>链接（可直接粘贴）</label><input type="text" value="${esc(c.url)}" placeholder="https://github.com/..." oninput="D.codes[${i}].url=this.value;save()"></div>
+        </div>
+        <div class="field"><label>说明（可选）</label><input type="text" value="${esc(c.desc)}" oninput="D.codes[${i}].desc=this.value;save()"></div>
+      </div>
+      <div class="ops">
+        <button class="mini" onclick="moveCode(${i},-1)">↑</button>
+        <button class="mini" onclick="moveCode(${i},1)">↓</button>
+        <button class="mini danger" onclick="delCode(${i})">删除</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('tab-codes').innerHTML = `
+    <h2 class="sec">Publication Related Codes <button class="mini primary" style="margin-left:8px" onclick="addCode()">＋ 添加</button></h2>
+    ${rows || '<div class="hint">暂无，点击「添加」。</div>'}`;
+}
+function addCode() { D.codes = D.codes || []; D.codes.push({ name: '', url: '', desc: '' }); save(); renderCodes(); }
+function delCode(i) { if (!confirm('删除这条代码链接？')) return; D.codes.splice(i, 1); save(); renderCodes(); }
+function moveCode(i, d) { const a = D.codes, j = i + d; if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; save(); renderCodes(); }
+
+/* ================= 发布导出 ================= */
+let GH = { user: '', repo: '', branch: 'main', remember: true, hasToken: false };
+let ghTokenSession = '';
+const val = id => { const e = document.getElementById(id); return e ? e.value.trim() : ''; };
+
+function renderPublish() {
+  document.getElementById('tab-publish').innerHTML = `
+    <h2 class="sec">生成静态网站（部署在本文件夹）</h2>
+    <div class="hint">
+      编辑器会把全部内容生成<b>多页面静态网站</b>并直接部署到 <b>C:\\个人课题组主页\\</b>
+      （index.html、members.html、publications.html、honors.html、codes.html、members\\、photos\\）。
+      该文件夹本身就是网站根目录，可直接作为 GitHub Pages 仓库发布。
+    </div>
+    <p style="margin:14px 0">
+      <button class="primary" onclick="doExport()" style="padding:8px 22px;font-size:14px">🚀 生成 / 更新网站</button>
+      ${MODE === 'server' ? '<button onclick="openSite()" style="margin-left:8px">本地预览</button>' : ''}
+    </p>
+    <div id="exportResult"></div>
+    <h2 class="sec">一键发布到 GitHub Pages</h2>
+    <div id="ghPanel"><div class="hint">加载中…</div></div>
+    <h2 class="sec">数据管理</h2>
+    <div class="kv">当前模式：<b>${MODE === 'server' ? '本地服务模式（数据保存到 data.json，支持 Word 解析、网站导出与 GitHub 发布）' : '浏览器本地模式（数据保存在浏览器 localStorage；Word 解析、网站导出与 GitHub 发布需启动本地服务）'}</b></div>
+    <p>
+      <button onclick="exportJSON()">导出数据为 JSON</button>
+      <button onclick="importJSON()">从 JSON 导入</button>
+      <button class="danger" onclick="resetData()">恢复初始内容</button>
+    </p>
+    <div class="hint" style="margin-top:14px">
+      <b>使用方法：</b>双击本目录下的 <b>启动编辑器.bat</b> → 自动打开浏览器 → 编辑后自动保存 → 点「生成网站」部署到本文件夹，或点「一键发布到 GitHub」。
+    </div>`;
+  refreshGhPanel();
+}
+async function refreshGhPanel() {
+  const el = document.getElementById('ghPanel');
+  if (!el) return;
+  if (MODE !== 'server') {
+    el.innerHTML = '<div class="hint">⚠️ GitHub 发布需要本地服务支持：请双击「启动编辑器.bat」后使用。</div>';
+    return;
+  }
+  try { const r = await fetch('/api/github/config'); GH = Object.assign({}, GH, await r.json()); } catch (e) {}
+  const authed = GH.hasToken || ghTokenSession;
+  el.innerHTML = `
+    <div class="hint">第一次发布时，工具会<b>询问你是否进行账号授权</b>：授权通过 GitHub Personal Access Token 完成，仅用于创建仓库和推送网页，令牌只保存在本机（编辑器目录），不会上传或写入网站仓库。</div>
+    <div class="row3">
+      <div class="field"><label>GitHub 用户名</label><input type="text" id="ghUser" value="${esc(GH.user)}" placeholder="your-username"></div>
+      <div class="field"><label>仓库名（留空则自动用 用户名.github.io）</label><input type="text" id="ghRepo" value="${esc(GH.repo)}" placeholder="${esc(GH.user || 'your-username')}.github.io"></div>
+      <div class="field"><label>分支</label><input type="text" id="ghBranch" value="${esc(GH.branch || 'main')}"></div>
+    </div>
+    <div class="field" style="margin-top:10px;max-width:480px">
+      <label>网络代理（可选；无法连接 GitHub 时填写，留空则自动探测本机代理）</label>
+      <input type="text" id="ghProxy" value="${esc(GH.proxy || '')}" placeholder="http://127.0.0.1:7890">
+    </div>
+    <div class="chk" style="flex-wrap:wrap;gap:16px">
+      <span><input type="checkbox" id="ghRemember" ${GH.remember ? 'checked' : ''}> 在本机记住授权令牌</span>
+      <span><input type="checkbox" id="ghForce"> 远程历史不同则强制覆盖</span>
+      ${authed ? '<span class="chip">✓ 已授权 ' + esc(GH.user || '') + '</span>' : '<span class="chip" style="background:#fff3df;color:#a4700a">未授权</span>'}
+    </div>
+    <p style="margin:14px 0">
+      <button onclick="openGhAuth()">🔑 ${authed ? '更新授权' : '账号授权'}</button>
+      <button class="primary" onclick="doGhPublish()" style="margin-left:8px">🚀 一键发布到 GitHub</button>
+      ${GH.user ? `<button onclick="openGhSite()" style="margin-left:8px">打开线上主页</button>` : ''}
+    </p>
+    <div id="ghLog"></div>`;
+}
+function openGhAuth() {
+  openModal('GitHub 账号授权', `
+    <div class="hint">
+      授权分三步：<br>
+      1️⃣ 点击下方「打开令牌创建页」（已为你预选 <b>repo</b> 权限），登录 GitHub；<br>
+      2️⃣ 拉到页面底部点 <b>Generate token</b>，复制生成的令牌（<b>ghp_</b> 开头，只显示一次）；<br>
+      3️⃣ 粘贴到下方输入框，点「保存授权」。
+    </div>
+    <div class="field">
+      <label>Personal Access Token</label>
+      <input type="password" id="ghTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+      <div class="exp" style="margin-top:5px">令牌仅保存在本机 site-editor/github_config.json（该文件已被排除在 git 仓库之外），不会上传到任何地方。</div>
+    </div>
+    <div class="mfoot" style="justify-content:flex-start">
+      <button onclick="window.open('https://github.com/settings/tokens/new?scopes=repo&description=Homepage%20Editor','_blank')">打开令牌创建页 ↗</button>
+    </div>
+  `, async () => {
+    const token = val('ghTokenInput');
+    if (!token) { toast('请粘贴令牌'); return false; }
+    ghTokenSession = token;
+    const body = {
+      user: val('ghUser'), repo: val('ghRepo'), branch: val('ghBranch') || 'main',
+      token, remember: document.getElementById('ghRemember').checked
+    };
+    try {
+      const r = await fetch('/api/github/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const j = await r.json();
+      if (!j.ok) { toast('保存失败: ' + (j.error || '')); return false; }
+      await refreshGhPanel();
+      toast('✅ 授权已保存，现在可以一键发布了');
+    } catch (e) { toast('保存失败: ' + e.message); return false; }
+  });
+}
+async function doGhPublish() {
+  if (MODE !== 'server') { toast('请先双击「启动编辑器.bat」启动本地服务'); return; }
+  const user = val('ghUser');
+  if (!user) { toast('请先填写 GitHub 用户名并授权'); openGhAuth(); return; }
+  if (!ghTokenSession && !GH.hasToken) {
+    if (confirm('发布到 GitHub 需要先进行一次账号授权（GitHub Personal Access Token）。\n\n是否现在开始授权？')) openGhAuth();
+    return;
+  }
+  const repo = val('ghRepo') || (user + '.github.io');
+  const logEl = document.getElementById('ghLog');
+  logEl.innerHTML = '<div class="hint">⏳ 正在发布…（约需 10 秒 - 3 分钟；网络不佳时自动改用 API 直传）</div>';
+  try {
+    const r = await fetch('/api/github/publish', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user, repo, branch: val('ghBranch') || 'main', force: document.getElementById('ghForce').checked, token: ghTokenSession || undefined, proxy: (val('ghProxy') || '').trim() || undefined })
+    });
+    const j = await r.json();
+    logEl.innerHTML = j.ok
+      ? `<div class="hint" style="background:#e8f6ec;border:1px solid #bfe3c8">✅ 发布成功！线上地址：<a href="${esc(j.url)}" target="_blank">${esc(j.url)}</a>（Pages 首次部署约 1-2 分钟生效）</div><div class="filelist">${(j.log || []).map(esc).join('<br>')}</div>`
+      : `<div class="hint" style="background:#fdecea;border:1px solid #f0c4bd">❌ ${esc(j.error || '发布失败')}</div><div class="filelist">${(j.log || []).map(esc).join('<br>')}</div>`;
+    if (j.ok) { GH.user = user; GH.repo = repo; refreshGhPanel(); }
+  } catch (e) { logEl.innerHTML = ''; toast('发布失败: ' + e.message); }
+}
+function openGhSite() {
+  const user = val('ghUser') || GH.user;
+  if (!user) { toast('请先填写用户名'); return; }
+  const repo = (val('ghRepo') || GH.repo || user + '.github.io').toLowerCase();
+  window.open(repo === (user + '.github.io') ? `https://${user}.github.io/` : `https://${user}.github.io/${repo}/`);
+}
+async function doExport() {
+  if (MODE !== 'server') { toast('浏览器本地模式不支持导出，请先双击「启动编辑器.bat」'); return; }
+  await doSave();
+  toast('正在生成网站…');
+  try {
+    const r = await fetch('/api/export');
+    const j = await r.json();
+    if (j.ok) {
+      document.getElementById('exportResult').innerHTML =
+        `<div class="hint" style="background:#e8f6ec;border:1px solid #bfe3c8">✅ 已生成 ${j.files.length} 个文件 → <b>${esc(j.dir)}</b></div>
+         <div class="filelist">${j.files.map(esc).join('<br>')}</div>`;
+      toast('✅ 网站已生成');
+    } else toast('导出失败: ' + j.error);
+  } catch (e) { toast('导出失败: ' + e.message); }
+}
+function openSite() {
+  if (MODE === 'server') window.open('/site/index.html');
+  else toast('请先双击「启动编辑器.bat」启动本地服务');
+}
+
+/* ---------- JSON 导入导出 / 重置 ---------- */
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(D, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'homepage-data.json'; a.click();
+  toast('已导出 JSON');
+}
+function importJSON() {
+  pickFile('.json', async f => {
+    try {
+      const j = JSON.parse(await f.text());
+      if (!j.profile) throw new Error('文件格式不正确');
+      D = j; await doSave(); renderAll(); toast('✅ 数据已导入');
+    } catch (e) { toast('导入失败: ' + e.message); }
+  });
+}
+async function resetData() {
+  if (!confirm('确定恢复为从原主页解析的初始内容？当前修改将丢失！')) return;
+  D = JSON.parse(document.getElementById('default-data').textContent);
+  await doSave(); renderAll(); toast('已恢复初始内容');
+}
+
+/* ---------- 弹窗 ---------- */
+function openModal(title, bodyHtml, onSave) {
+  const mask = document.getElementById('mask'), modal = document.getElementById('modal');
+  modal.innerHTML = `<h3>${esc(title)}</h3>${bodyHtml}<div class="mfoot">
+    <button onclick="closeModal()">取消</button>
+    <button class="primary" id="modalOk">保存</button></div>`;
+  mask.style.display = 'flex';
+  document.getElementById('modalOk').onclick = () => { if (onSave() !== false) closeModal(); };
+}
+function closeModal() { document.getElementById('mask').style.display = 'none'; }
+document.getElementById('mask').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+/* ---------- 启动 ---------- */
+(async function init() {
+  await load();
+  renderAll();
+})();
+</script>
+</body>
+</html>

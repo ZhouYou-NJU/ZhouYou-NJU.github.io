@@ -1,0 +1,58 @@
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman','Microsoft YaHei',serif;background:#f4f5f7;color:#222;line-height:1.65}
+a{color:#1a5dad;text-decoration:none}
+a:hover{text-decoration:underline}
+.nav{position:sticky;top:0;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.08);z-index:10}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:14px 24px}
+.brand{font-size:22px;font-weight:bold;color:#1a3c6e}
+.brand:hover{text-decoration:none}
+.nav-links a{margin-left:22px;font-size:15px;color:#444;font-family:Verdana,Arial,sans-serif}
+.nav-links a.active{color:#1a5dad;font-weight:bold;border-bottom:2px solid #1a5dad;padding-bottom:3px}
+.wrap{max-width:1060px;margin:28px auto 60px;padding:0 24px}
+.card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);padding:32px 38px;margin-bottom:26px}
+h1.page-title{font-size:30px;color:#1a3c6e;margin-bottom:6px}
+h2.sec{font-size:21px;color:#1a3c6e;border-left:4px solid #1a5dad;padding-left:12px;margin-bottom:16px}
+h3.year{font-size:17px;margin:18px 0 8px;color:#333;font-family:Verdana,sans-serif}
+.hero{display:flex;gap:34px;align-items:center;flex-wrap:wrap}
+.hero img{width:210px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.hero .info h1{font-size:34px;color:#1a3c6e}
+.hero .info .role{font-size:20px;margin:4px 0 10px;color:#333}
+.hero .info .meta{font-size:15px;color:#444;font-family:Verdana,sans-serif;line-height:1.9}
+.badge{display:inline-block;background:#e8f0fb;color:#1a5dad;border-radius:4px;padding:1px 8px;font-size:12px;font-family:Verdana,sans-serif;margin-left:8px}
+.pub{margin:10px 0;padding-left:14px;border-left:2px solid #e3e8ef}
+.pub .t{font-weight:bold;color:#1a5dad}
+.pub .v{font-style:italic}
+.pub .note{color:#c0392b;font-weight:bold;font-size:13px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px}
+.mcard{text-align:center;background:#fafbfc;border:1px solid #e8ecf1;border-radius:10px;padding:18px 12px;transition:box-shadow .2s}
+.mcard:hover{box-shadow:0 3px 12px rgba(0,0,0,.1)}
+.mcard img{width:104px;height:130px;object-fit:cover;border-radius:8px}
+.mcard .nm{font-weight:bold;font-size:15px;margin-top:10px}
+.mcard .dg{font-size:13px;color:#666;margin-top:3px;font-family:Verdana,sans-serif}
+.mcard .pd{font-size:12.5px;color:#888;margin-top:2px;font-family:Verdana,sans-serif}
+ul.honors{list-style:none}
+ul.honors li{padding:9px 6px 9px 30px;border-bottom:1px dashed #e5e9ef;position:relative}
+ul.honors li:before{content:'🏆';position:absolute;left:2px;font-size:14px}
+.codes li{margin:10px 0}
+.edu li{margin:9px 0}
+.hlmark{font-size:15px}
+.hlgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px;margin-top:14px}
+.hlcard{border:1px solid #e3e8ef;border-radius:10px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s}
+.hlcard:hover{box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.hlimg{height:185px;background:linear-gradient(135deg,#e8f0fb,#f7f9fc);display:flex;align-items:center;justify-content:center}
+.hlimg img{width:100%;height:100%;object-fit:cover;display:block}
+.hlnoimg{font-size:36px;color:#b9cbe4}
+.hlbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px;flex:1}
+.hlvenue{font-size:12px;color:#889;font-family:Verdana,sans-serif}
+.hlt{font-weight:bold;color:#1a5dad;font-size:14.5px;line-height:1.45}
+.hlsum{font-size:13px;color:#445;line-height:1.65;margin:0}
+.hllinks{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap;padding-top:6px}
+.hllinks a{font-size:12.5px;font-family:Verdana,sans-serif}
+.labline{font-size:16px;color:#1a5dad;font-weight:bold;margin:2px 0 8px}
+footer{text-align:center;color:#999;font-size:13px;padding:26px 0;font-family:Verdana,sans-serif}
+.avatar-fallback{width:210px;height:245px;border-radius:8px;background:#dde5ef;display:flex;align-items:center;justify-content:center;color:#8aa;font-size:15px}
+.memberpage .avatar{width:150px;height:180px;object-fit:cover;border-radius:8px}
+.memberpage .head{display:flex;gap:26px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.memberpage .content p{margin:9px 0}
+.backlink{font-size:14px;font-family:Verdana,sans-serif;display:inline-block;margin-bottom:18px}

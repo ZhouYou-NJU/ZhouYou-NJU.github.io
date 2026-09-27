@@ -1,0 +1,10 @@
+# Homepage Editor
+site-editor/github_config.json
+site-editor/server_log.txt
+site-editor/data.json.bak
+site-editor/data.json.tmp
+site-editor/__pycache__/
+__pycache__/
+备份/
+Thumbs.db
+desktop.ini
