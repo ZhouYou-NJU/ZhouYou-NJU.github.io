@@ -2,7 +2,7 @@
   "profile": {
     "name": "You Zhou",
     "nameCn": "周游",
-    "labName": "Pho-FreeU Lab",
+    "labName": "Pho-FreeU Lab (南京大学·计算显微成像小组)",
     "title": "Assistant Professor",
     "affiliation": "Medical School, Nanjing University",
     "address": "210093, Nanjing, Jiangsu, China",
@@ -13,7 +13,7 @@
     "avatar": "uploads/photos/YZ_Hbg.jpg",
     "pubNote": "* Joint first author, and # Corresponding author",
     "aboutHtml": "<p>I am an Assistant Professor at the Medical School of Nanjing University and a member of <a href=\"https://emg-nju.github.io/Homepage/\" target=\"_blank\">EMG@NJU Group</a>, led by <a href=\"https://med.nju.edu.cn/gn/main.htm\" target=\"_blank\">Prof. Ning Gu</a>. From March 2019 to April 2023, I served as an Associate Researcher at the School of Electrical Science and Technology of Nanjing University and a member of <a href=\"https://cite.nju.edu.cn/\" target=\"_blank\">CITE Lab</a>, led by <a href=\"https://cite.nju.edu.cn/People/Faculty/20190621/i5054.html\" target=\"_blank\">Prof. Xun Cao</a>.</p><p>I currently collaborate with <a href=\"https://imt.bjmu.edu.cn/szll/yjsds/yxgcjs_2/6657ae79fe2648efa71b0612b138c61c.htm\" target=\"_blank\">Prof. Bo Xiong</a> @ PKU and <a href=\"https://vision.nju.edu.cn/2c/f1/c29472a535793/page.htm\" target=\"_blank\">Dr. Chengkang Shen</a> @ NJU. My research interests include <strong>Computational Optics and Microscopy</strong>, especially focusing on designing novel and miniaturized microscopes (on-chip microscope, light-field microscope, and micro-endoscope) and developing iterative/intelligent algorithms based on physical imaging processes (3D fluorescent imaging and 3D echocardiogram). For students who are interested in our research area, welcome to join us.</p>",
-    "servicesHtml": "<p><strong>Reviewer (since 2019):</strong></p><p><em>Light: Science &amp; Applications, APL Photonics, npj Imaging,</em><br>Optica Journals (<em>Optica, Photonics Research, Optics Express, Optics Letters, Biomedical Optics Express, Applied Optics, JOSA A</em>),<br><em>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</em>,<br><em>IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)</em>.</p>",
+    "servicesHtml": "<p><strong>Reviewer (since 2019):</strong></p><p><em>Light: Science &amp; Applications, APL Photonics, npj Imaging,&nbsp;</em><i>Advanced Photonics Nexus,</i><br>Optica Journals (<em>Optica, Photonics Research, Optics Express, Optics Letters, Biomedical Optics Express, Applied Optics, JOSA A</em>),<br><em>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</em>,</p><p><i>IEEE Transactions on Image Processing (TIP),</i><br><em>IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)</em>.</p>",
     "education": [
       {
         "degree": "Ph. D.",
