@@ -256,7 +256,10 @@
       "year": 2026,
       "link": "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202503082",
       "note": "",
-      "featured": true
+      "featured": true,
+      "summary": "",
+      "image": "uploads/photos/photo_1790574538871.jpg",
+      "extraLinks": []
     },
     {
       "id": "p02",
@@ -312,7 +315,15 @@
       "year": 2025,
       "link": "https://www.researching.cn/articles/OJ652a82f30d22719a",
       "note": "On the Cover",
-      "featured": true
+      "featured": true,
+      "summary": "",
+      "image": "uploads/photos/photo_1790574713628.jpg",
+      "extraLinks": [
+        {
+          "label": "Code",
+          "url": "https://github.com/Chaos1025/3DGAT"
+        }
+      ]
     },
     {
       "id": "p07",
@@ -357,7 +368,15 @@
       "year": 2024,
       "link": "https://ieeexplore.ieee.org/document/10574837",
       "note": "",
-      "featured": true
+      "featured": true,
+      "summary": "",
+      "image": "uploads/photos/photo_1790574848061.jpg",
+      "extraLinks": [
+        {
+          "label": "Code",
+          "url": "https://njuvision.github.io/NeuralCMF/"
+        }
+      ]
     },
     {
       "id": "p11",
@@ -490,7 +509,10 @@
       "year": 2022,
       "link": "https://opg.optica.org/PRJ/abstract.cfm?uri=PRJ-10-9-2247",
       "note": "Editor's Pick",
-      "featured": true
+      "featured": true,
+      "summary": "",
+      "image": "uploads/photos/photo_1790575012937.jpg",
+      "extraLinks": []
     },
     {
       "id": "p23",
@@ -513,7 +535,15 @@
       "year": 2022,
       "link": "https://opg.optica.org/oe/fulltext.cfm?uri=oe-30-11-18168&id=472748",
       "note": "",
-      "featured": true
+      "featured": true,
+      "summary": "",
+      "image": "uploads/photos/photo_1790574939184.png",
+      "extraLinks": [
+        {
+          "label": "Code",
+          "url": "https://github.com/liuzhen0212/DNF"
+        }
+      ]
     },
     {
       "id": "p25",
