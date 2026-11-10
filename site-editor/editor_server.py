@@ -12,6 +12,7 @@ import json
 import os
 import re
 import shutil
+import socket
 import sys
 import time
 import zipfile
@@ -25,7 +26,7 @@ SITE = ROOT                                             # 新架构：直接部�
 DATA_FILE = os.path.join(BASE, "data.json")
 UPLOADS = os.path.join(BASE, "uploads")
 GH_CFG = os.path.join(BASE, "github_config.json")
-PORT = 8765
+PORT = 8790  # 编辑器默认端口（8765 常被其他管理工具占用，故用独立端口并自动顺延）
 
 GITIGNORE = """# Homepage Editor
 site-editor/github_config.json
@@ -299,6 +300,10 @@ h3.year{font-size:17px;margin:18px 0 8px;color:#333;font-family:Verdana,sans-ser
 .pub .t{font-weight:bold;color:#1a5dad}
 .pub .v{font-style:italic}
 .pub .note{color:#c0392b;font-weight:bold;font-size:13px}
+.pub .a{color:#333}
+.pub .me{font-weight:bold;color:#111}
+.pub sup{color:#666}
+.publegend{color:#556;font-family:Verdana,sans-serif;font-size:13px;background:#f6f8fb;border:1px solid #e3e8ef;border-radius:6px;padding:8px 12px;margin-bottom:14px}
 .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px}
 .mcard{text-align:center;background:#fafbfc;border:1px solid #e8ecf1;border-radius:10px;padding:18px 12px;transition:box-shadow .2s}
 .mcard:hover{box-shadow:0 3px 12px rgba(0,0,0,.1)}
@@ -362,10 +367,23 @@ def img_tag(data, rel, prefix='', cls='', size=''):
     return '<img src="%sphotos/%s"%s%s alt="">' % (prefix, base, s, c)
 
 
+ME_NAME_PAT = re.compile(r'(?<![A-Za-z])(?:Y\. ?Zhou|You Zhou|Zhou You|周游)(?![a-z])', re.I)
+
+
+def format_authors_html(authors):
+    """作者串 -> HTML：本人姓名（You Zhou / Y. Zhou / 周游）加粗，* 和 # 转为上标标注"""
+    s = html_mod.escape(authors or '')
+    s = ME_NAME_PAT.sub(lambda m: '<strong class="me">%s</strong>' % m.group(0), s)
+    s = s.replace('*', '<sup>*</sup>').replace('#', '<sup>#</sup>')
+    return s
+
+
 def build_publication_html(p, for_editor=False):
     parts = []
     if p.get('featured'):
         parts.append('<span class="hlmark" title="Research Highlight">⭐</span> ')
+    if p.get('authors'):
+        parts.append('<span class="a">%s.</span> ' % format_authors_html(p['authors']))
     link = p.get('link', '')
     title = html_mod.escape(p.get('title', ''))
     if link:
@@ -525,14 +543,14 @@ def build_site(data):
 
     years = sorted({p.get('year', 0) for p in journals}, reverse=True)
     jsec = []
-    recent = [y for y in years if y and y >= 2020]
+    recent = [y for y in years if y and y >= 2021]
     for y in recent:
         items = ''.join(build_publication_html(p) for p in journals if p.get('year') == y)
         jsec.append('<h3 class="year">%d</h3>%s' % (y, items))
-    old = [p for p in journals if not (p.get('year') and p.get('year') >= 2020)]
+    old = [p for p in journals if not (p.get('year') and p.get('year') >= 2021)]
     if old:
         items = ''.join(build_publication_html(p) for p in old)
-        jsec.append('<h3 class="year">Before 2020</h3>%s' % items)
+        jsec.append('<h3 class="year">2020 &amp; Before</h3>%s' % items)
 
     csec = []
     for track in ('Artificial Intelligence', 'Optics and Photonics'):
@@ -544,7 +562,7 @@ def build_site(data):
         csec.append('<h3 class="year">Others</h3>%s' % ''.join(build_publication_html(p) for p in others))
 
     psec = ''.join('<li style="margin:8px 0">%s. <em>%s</em>. %s, %s.</li>' % (
-        html_mod.escape(p.get('authors', '')), html_mod.escape(p.get('title', '')),
+        format_authors_html(p.get('authors', '')), html_mod.escape(p.get('title', '')),
         html_mod.escape(p.get('venue', '')), html_mod.escape(p.get('meta', ''))) for p in patents)
 
     # Research Highlights（亮点展示卡片）
@@ -589,6 +607,7 @@ def build_site(data):
 <div class="card">
 <h1 class="page-title">Publications</h1>
 <p style="color:#667;font-family:Verdana,sans-serif;font-size:14px;margin-bottom:14px"><strong>({html_mod.escape(prof.get('pubNote',''))})</strong></p>
+<p class="publegend">作者标注：<sup>*</sup> 第一作者 / 共同第一作者；<sup>#</sup> 通讯作者。</p>
 {highlights_html}
 <h2 class="sec">1. Journal Papers</h2>{''.join(jsec)}
 <h2 class="sec" style="margin-top:26px">2. Conference Papers</h2>{''.join(csec)}
@@ -778,6 +797,7 @@ def github_publish(user, token, repo, branch, force, proxy=''):
     """构建网站 -> git 提交 -> 创建仓库(如需) -> 推送 -> 开启 Pages，返回 (日志列表, 线上地址)"""
     import subprocess
     log = []
+    t0 = time.time()
     git = find_git()
     if not git:
         raise RuntimeError('未检测到 git。请安装 Git for Windows（https://git-scm.com/download/win，'
@@ -884,6 +904,8 @@ def github_publish(user, token, repo, branch, force, proxy=''):
         blob = ((r.stderr or '') + (r.stdout or '')).lower()
         if not any(k in blob for k in NET_KW):
             break  # 非网络类错误（如推送被拒绝），无需重试
+        if any(k in blob for k in ('could not connect', 'failed to connect', 'timed out')):
+            break  # 连接层完全不通，换协议/证书无济于事，直接改走 API 省时间
     msg = clean(r.stderr or r.stdout)
     if r.returncode != 0:
         blob = msg.lower()
@@ -928,6 +950,7 @@ def github_publish(user, token, repo, branch, force, proxy=''):
             log.append('✓ GitHub Pages 已处于开启状态')
         else:
             log.append('! 开启 Pages 返回 %s，可稍后在仓库 Settings → Pages 手动开启' % code3)
+    log.append('⏱ 本次发布总耗时 %.1f 秒' % (time.time() - t0))
     log.append('🎉 发布完成！线上地址: %s （首次部署约 1-2 分钟生效）' % url)
     return log, url
 
@@ -952,10 +975,14 @@ def _api_collect_files():
 
 def _api_publish(user, token, repo, branch, log):
     """git 推送不可用时的兜底发布：完全通过 api.github.com（Git Data API）创建提交并更新分支。
-    基于远程分支当前头构建提交（天然快进），并删除远程已不存在于本地的文件，保持完全同步。"""
+    基于远程分支当前头构建提交（天然快进）；增量同步：与远程同名文件的 git blob SHA 比对，
+    只上传有变化的文件，并发上传加速；远程多余文件同步删除。"""
     import base64
+    import hashlib
+    from concurrent.futures import ThreadPoolExecutor
+
     files = _api_collect_files()
-    log.append('↻ API 直传：共 %d 个文件' % len(files))
+    log.append('↻ API 直传：本地共 %d 个文件' % len(files))
 
     code, ref = gh_api('GET', '/repos/%s/%s/git/ref/heads/%s' % (user, repo, branch), token)
     head_sha = tree_sha = None
@@ -965,27 +992,55 @@ def _api_publish(user, token, repo, branch, log):
         if code == 200 and isinstance(cm, dict):
             tree_sha = cm.get('tree', {}).get('sha')
 
-    remote_paths = set()
+    remote_map = {}
     if tree_sha:
         code, tr = gh_api('GET', '/repos/%s/%s/git/trees/%s?recursive=1' % (user, repo, tree_sha), token)
         if code == 200 and isinstance(tr, dict):
-            remote_paths = {e['path'] for e in tr.get('tree', []) if e.get('type') == 'blob'}
+            remote_map = {e['path']: e.get('sha') for e in tr.get('tree', []) if e.get('type') == 'blob'}
 
-    entries = []
-    for i, rel in enumerate(sorted(files)):
+    def blob_sha(data):
+        h = hashlib.sha1()
+        h.update(b'blob %d\0' % len(data))
+        h.update(data)
+        return h.hexdigest()
+
+    todo = []
+    for rel in sorted(files):
         with open(files[rel], 'rb') as f:
             data = f.read()
+        if remote_map.get(rel) == blob_sha(data):
+            continue  # 内容未变，跳过上传
+        todo.append((rel, data))
+    deletions = [r for r in sorted(set(remote_map) - set(files)) if r.lower() != 'readme.md']
+
+    if not todo and not deletions:
+        log.append('✓ 远程内容与本地一致（比对 %d 个文件），无需上传' % len(files))
+        return
+    if len(todo) < len(files):
+        log.append('  · 增量同步：跳过 %d 个未变文件，仅上传 %d 个' % (len(files) - len(todo), len(todo)))
+
+    def upload(item):
+        rel, data = item
         code, b = gh_api('POST', '/repos/%s/%s/git/blobs' % (user, repo), token,
                          {'content': base64.b64encode(data).decode('ascii'), 'encoding': 'base64'})
         if code not in (200, 201):
             raise RuntimeError('上传 %s 失败 (HTTP %s): %s' % (rel, code, str(b)[:200]))
-        entries.append({'path': rel, 'mode': '100644', 'type': 'blob', 'sha': b['sha']})
-        if (i + 1) % 20 == 0:
-            log.append('  …已上传 %d/%d' % (i + 1, len(files)))
-    for rel in sorted(remote_paths - set(files)):
-        if rel.lower() == 'readme.md':
-            continue  # 保留用户在 GitHub 上维护的 README，其余内容完全同步
-        entries.append({'path': rel, 'sha': None})  # 删除远程多余文件
+        if not isinstance(b, dict) or 'sha' not in b:
+            raise RuntimeError('上传 %s 返回异常: %s' % (rel, str(b)[:200]))
+        return {'path': rel, 'mode': '100644', 'type': 'blob', 'sha': b['sha']}
+
+    entries = []
+    done = 0
+    workers = min(8, max(1, len(todo)))
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for ent in ex.map(upload, todo):
+            entries.append(ent)
+            done += 1
+            if done % 15 == 0:
+                log.append('  …已上传 %d/%d' % (done, len(todo)))
+
+    for rel in deletions:
+        entries.append({'path': rel, 'sha': None})  # 删除远程多余文件（保留 README.md）
 
     code, t = gh_api('POST', '/repos/%s/%s/git/trees' % (user, repo), token,
                      {'base_tree': tree_sha, 'tree': entries})
@@ -1206,24 +1261,56 @@ def main():
     os.makedirs(os.path.join(UPLOADS, 'photos'), exist_ok=True)
     if not os.path.exists(DATA_FILE):
         save_data({})
-    # 防止重复启动：先探测端口是否已有编辑器在运行
-    import socket
-    probe = socket.socket()
-    probe.settimeout(1)
-    try:
-        probe.connect(('127.0.0.1', PORT))
-        probe.close()
-        print('端口 %d 已被占用：编辑器可能已在运行，请直接访问 http://127.0.0.1:%d' % (PORT, PORT))
-        return
-    except OSError:
-        pass
-    finally:
+
+    # 端口选择：8765 常被其他工具（如 admin 管理后台）占用，
+    # 故从 PORT 起顺延找空闲端口；若命中的是本编辑器的旧实例则直接复用并打开页面。
+    import urllib.request
+    import webbrowser
+
+    def _port_free(p):
+        s = socket.socket()
+        s.settimeout(0.6)
         try:
-            probe.close()
+            s.connect(('127.0.0.1', p))
+            return False
+        except OSError:
+            return True
+        finally:
+            try:
+                s.close()
+            except Exception:
+                pass
+
+    def _is_our_editor(p):
+        try:
+            with urllib.request.urlopen('http://127.0.0.1:%d/api/github/config' % p, timeout=1.2) as r:
+                return '"hasToken"' in r.read(2000).decode('utf-8', 'ignore')
         except Exception:
-            pass
-    server = ThreadingHTTPServer(('127.0.0.1', PORT), Handler)
-    print('编辑器已启动: http://127.0.0.1:%d  (Ctrl+C 退出)' % PORT)
+            return False
+
+    port = None
+    for p in range(PORT, PORT + 11):
+        if _port_free(p):
+            port = p
+            break
+        if _is_our_editor(p):
+            print('编辑器已在运行：http://127.0.0.1:%d/ （已为你打开页面）' % p)
+            try:
+                webbrowser.open('http://127.0.0.1:%d/' % p)
+            except Exception:
+                pass
+            return
+    if port is None:
+        print('端口 %d-%d 均被占用，请关闭其他程序后重试' % (PORT, PORT + 10))
+        sys.exit(1)
+
+    server = ThreadingHTTPServer(('127.0.0.1', port), Handler)
+    url = 'http://127.0.0.1:%d/' % port
+    print('编辑器已启动: %s  (Ctrl+C 退出)' % url)
+    try:
+        webbrowser.open(url)
+    except Exception:
+        pass
     try:
         server.serve_forever()
     except KeyboardInterrupt:

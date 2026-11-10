@@ -24,6 +24,10 @@ h3.year{font-size:17px;margin:18px 0 8px;color:#333;font-family:Verdana,sans-ser
 .pub .t{font-weight:bold;color:#1a5dad}
 .pub .v{font-style:italic}
 .pub .note{color:#c0392b;font-weight:bold;font-size:13px}
+.pub .a{color:#333}
+.pub .me{font-weight:bold;color:#111}
+.pub sup{color:#666}
+.publegend{color:#556;font-family:Verdana,sans-serif;font-size:13px;background:#f6f8fb;border:1px solid #e3e8ef;border-radius:6px;padding:8px 12px;margin-bottom:14px}
 .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px}
 .mcard{text-align:center;background:#fafbfc;border:1px solid #e8ecf1;border-radius:10px;padding:18px 12px;transition:box-shadow .2s}
 .mcard:hover{box-shadow:0 3px 12px rgba(0,0,0,.1)}
