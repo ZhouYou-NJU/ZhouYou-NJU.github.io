@@ -281,7 +281,7 @@ a{color:#1a5dad;text-decoration:none}
 a:hover{text-decoration:underline}
 .nav{position:sticky;top:0;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.08);z-index:10}
 .nav-inner{max-width:1060px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:14px 24px}
-.brand{font-size:18px;font-weight:bold;color:#1a3c6e;max-width:17em;line-height:1.3;min-width:0;overflow-wrap:break-word;padding-right:8px}
+.brand{font-size:18px;font-weight:bold;color:#1a3c6e;max-width:368px;line-height:1.3;min-width:0;overflow-wrap:break-word;padding-right:8px}
 .brand:hover{text-decoration:none}
 .nav-links a{margin-left:22px;font-size:15px;color:#444;font-family:Verdana,Arial,sans-serif}
 .nav-links a.active{color:#1a5dad;font-weight:bold;border-bottom:2px solid #1a5dad;padding-bottom:3px}
